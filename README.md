@@ -1,6 +1,6 @@
-＃deploy site
+＃ deploy site
 
-##reference sites
+## reference sites
 https://www.youtube.com/watch?v=eaA7s3jvng8&t=861s
 >Switch Themes with Redux and Styled Components in React Native
 
