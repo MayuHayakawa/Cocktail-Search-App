@@ -1,5 +1,3 @@
-// https://bluelight.co/blog/redux-toolkit-with-typescript
-
 import { configureStore } from "@reduxjs/toolkit";
 import ThemeSlice from "./ThemeSlice/ThemeSlice";
 
