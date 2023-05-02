@@ -4,6 +4,9 @@ import { RootState } from '../redux/store';
 import { Link } from 'react-router-dom';
 import { changeTheme } from '../redux/ThemeSlice/ThemeSlice';
 import { lightTheme, darkTheme } from '../redux/ThemeSlice/Theme';
+import { TbMoonFilled, TbSunFilled } from 'react-icons/tb';
+
+
 
 const Nav = styled.div`
   position: fixed;
@@ -39,6 +42,17 @@ const Nav = styled.div`
   }
 `
 
+const Button = styled.button`
+  margin-left: 1rem;
+  padding: 0.7rem;
+  font-size: 1.2rem;
+  color: ${(props) => props.theme.primary_background_color};
+  background-color: ${(props) => props.theme.primary_font_color};
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+`
+
 const Navbar = () => {
   const dispatch = useDispatch();
   const theme = useSelector((state: RootState) => state.theme);
@@ -61,9 +75,13 @@ const Navbar = () => {
             <Link to="/favorite">FAVORITE</Link>
           </li>
           {theme === lightTheme ? (
-            <button onClick={() => dispatch(changeTheme(darkTheme))}>Dark mode</button>
+            <Button onClick={() => dispatch(changeTheme(darkTheme))}>
+              <TbMoonFilled />
+            </Button>
           ) : (
-            <button onClick={() => dispatch(changeTheme(lightTheme))}>Light mode</button>
+            <Button onClick={() => dispatch(changeTheme(lightTheme))}>
+              <TbSunFilled />
+            </Button>
           )}
         </ul>
       </Nav>

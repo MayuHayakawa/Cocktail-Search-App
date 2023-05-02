@@ -16,8 +16,8 @@ export const lightTheme: ThemeState = {
 
 export const darkTheme: ThemeState = {
     // mode: "dark",
-    primary_background_color: "#012B7D",
-    secondary_background_color: "#E45C6C",
+    primary_background_color: "#4C5F8A",
+    secondary_background_color: "#012B7D",
     third_background_color: "#7B90B9",
     primary_font_color: "#FFFFFF", //FDF8BE
 }
