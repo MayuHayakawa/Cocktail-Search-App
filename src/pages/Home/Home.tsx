@@ -47,7 +47,7 @@ const ButtonContainer = styled.div`
   }
 `
 
-const Home = () => {
+const Home: React.FC = () => {
   const theme = useSelector((state: RootState) => state.theme);
 
   return (
@@ -76,8 +76,8 @@ const Home = () => {
         <ButtonContainer>
           <Link to="search">
             <m.button
-             whileHover={{ scale: 1.1 }}
-             whileTap={{ scale: 0.9 }}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
             >
               Get Started
             </m.button>

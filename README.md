@@ -10,4 +10,8 @@ https://bluelight.co/blog/redux-toolkit-with-typescript
 https://zenn.dev/nekoniki/articles/f8600d1ab7d908
 >styled-componentsをTypescriptで使う上でのTips
 
+https://www.wantedly.com/companies/logical-studio/post_articles/430941
+>createAsyncThunkを使ってAPIを叩き、通信中はローディング画面を表示させる
 
+https://www.sejuku.net/blog/24896
+>RegExp(正規表現)の使い方と活用事例

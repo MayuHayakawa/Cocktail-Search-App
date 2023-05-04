@@ -53,10 +53,9 @@ const Button = styled.button`
   cursor: pointer;
 `
 
-const Navbar = () => {
+const Navbar: React.FC = () => {
   const dispatch = useDispatch();
   const theme = useSelector((state: RootState) => state.theme);
-  console.log(theme);
 
   return (
     <ThemeProvider theme={theme}>
