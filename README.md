@@ -15,3 +15,9 @@ https://www.wantedly.com/companies/logical-studio/post_articles/430941
 
 https://www.sejuku.net/blog/24896
 >RegExp(正規表現)の使い方と活用事例
+
+https://github.com/kilkelly/redux-localstorage-simple
+>Redux-localstrage-simple GitHub
+
+https://wonwon-eater.com/redux-toolkit-localstorage-simple/
+>Redux ToolkitでlocalStorageにデータを保存するには

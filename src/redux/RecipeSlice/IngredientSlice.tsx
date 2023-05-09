@@ -4,19 +4,19 @@ import { RootState } from "../store";
 
 //fetch data
 //createAsyncThunk(action type/name, acync function)
-export const fetchIngredient = createAsyncThunk("ingredients/fetchIngredient", async () => {
+export const fetchAllIngredient = createAsyncThunk("ingredients/fetchIngredient", async () => {
     const res = await axios.get('https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list');
     return res.data.drinks;
 })
 
 //set each data type
-const ingredientData = {
-    strIngredient1: ""
+type IngredientData = {
+    strIngredient1: string
 }
 
 //set data list type
-interface IngredientState {
-    data: typeof ingredientData[]
+type IngredientState = {
+    data: IngredientData[]
     status: 'idle' | 'pending' | 'succeeded' | 'rejected';
     error: string | undefined;
 }
@@ -33,14 +33,14 @@ export const IngredientSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
-        .addCase(fetchIngredient.pending, (state) => {
+        .addCase(fetchAllIngredient.pending, (state) => {
             state.status = 'pending';
         })
-        .addCase(fetchIngredient.fulfilled, (state, action) => {
+        .addCase(fetchAllIngredient.fulfilled, (state, action) => {
             state.status = 'succeeded';
             state.data = action.payload;
         })
-        .addCase(fetchIngredient.rejected, (state, action) => {
+        .addCase(fetchAllIngredient.rejected, (state, action) => {
             state.status = 'rejected';
             state.error = action.error.message;
         })
