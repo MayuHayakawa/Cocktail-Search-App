@@ -42,15 +42,15 @@ const CardContainer: React.FC<Props> = (props) => {
     <>
     { category === 'name' && dataList?.length != 0 && (
       <CardGrid>
-        {dataList?.map((data) => {
-          return (<Card recipeData={data} />)
+        {dataList?.map((data, index) => {
+          return (<Card key={index} recipeData={data} />)
         })}
       </CardGrid>
     )}
     { category === 'ingredient' && keyword != "" && recipesByIngredient.length != 0 && (
       <CardGrid>
-        {recipesByIngredient.map((data) => {
-          return (<Card recipeData={data} />)
+        {recipesByIngredient.map((data, index) => {
+          return (<Card key={index} recipeData={data} />)
         })}
       </CardGrid>
     )}

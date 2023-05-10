@@ -43,9 +43,9 @@ export const FavoriteSlice = createSlice({
                 }
             })
         },
-        removeRecipe: (state, action: PayloadAction<FavoriteRecipeData>) => {
+        removeRecipe: (state, action: PayloadAction<string>) => {
             console.log(action.payload);
-            state.list = state.list.filter((item) =>  item.id != action.payload.id)
+            state.list = state.list.filter((item) =>  item.id != action.payload)
         },
     }
 })

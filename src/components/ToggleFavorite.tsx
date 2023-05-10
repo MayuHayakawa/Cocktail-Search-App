@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
-import { FavoriteRecipeData, addRecipe, removeRecipe } from '../redux/FavoriteSlice/FavoriteSlice';
+import { addRecipe, removeRecipe } from '../redux/FavoriteSlice/FavoriteSlice';
 import { FavoriteList } from '../redux/FavoriteSlice/FavoriteSlice';
 import { HiHeart, HiOutlineHeart } from 'react-icons/hi';
 import styled, { ThemeProvider }from 'styled-components';
@@ -16,7 +16,7 @@ type Props = {
   id: string
   image: string
   name: string
-  likedTime: string
+  likedTime?: string
 }
 
 type RecipeId = (string)[]
@@ -26,7 +26,6 @@ const ToggleFavorite: React.FC<Props> = (props) => {
   const { id, image, name } = props;
   const dispatch = useDispatch();
   const favoriteRecipes = useSelector(FavoriteList);
-  const [ favoriteData, setFavoriteData ] = useState<Props>();
   const [ idArray, setIdArray ] = useState<RecipeId>([]);
   
   useEffect(() => {
@@ -37,25 +36,13 @@ const ToggleFavorite: React.FC<Props> = (props) => {
   },[favoriteRecipes])
 
   const handleAdd = () => {
-    console.log("add")
     const now = new Date();
     const likedTime = now.toLocaleString();
-    console.log({ id: id, image: image, name: name, likedTime: likedTime });
-    // setFavoriteData({ id: id, image: image, name: name, likedTime: likedTime });
+    dispatch(addRecipe({ id: id, image: image, name: name, likedTime: likedTime }));
   }
   
-  useEffect(() => {
-    if(favoriteData != undefined) {
-      console.log("ok")
-      console.log(favoriteData);
-      dispatch(addRecipe(favoriteData));
-    } else {
-      console.log(typeof("no"));
-    }
-  },[dispatch, favoriteData]);
-
   const handleRemove = () => {
-    dispatch(removeRecipe(props));
+    dispatch(removeRecipe(id));
   }
 
   return (

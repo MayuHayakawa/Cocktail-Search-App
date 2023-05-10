@@ -10,8 +10,6 @@ const SearchByIngredient: React.FC = () => {
   const theme = useSelector((state: RootState) => state.theme);
   const dispatch = useDispatch();
   const ingredients = useSelector(ingredientList);
-  console.log(ingredients);
-  console.log(ingredients.data);
 
   useEffect(() => {
     if(ingredients.status === 'idle'){

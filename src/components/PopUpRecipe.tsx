@@ -77,17 +77,16 @@ type Props = {
 }
 
 type Recipe = {
-  idDrink?: string
-  strDrink?: string
-  strInstructions?: string
-  strDrinkThumb?: string
+  idDrink: string
+  strDrink: string
+  strInstructions: string
+  strDrinkThumb: string
 }
 
 const PopUpRecipe: React.FC<Props> = (props) => {
   const { category, id, setShow } = props;
   const theme = useSelector((state: RootState) => state.theme);
-  const [ recipe, setRecipe ] = useState<Recipe>([]);
-  const { idDrink, strDrink, strInstructions, strDrinkThumb } = recipe;
+  const [ recipe, setRecipe ] = useState<Recipe | undefined>();
 
   const closePopUp = () => {
     setShow(false);
@@ -97,6 +96,7 @@ const PopUpRecipe: React.FC<Props> = (props) => {
     if(category === 'random') {
       try {
         const res = await axios.get('https://www.thecocktaildb.com/api/json/v1/1/random.php');
+        console.log(res.data.drinks[0]);
         setRecipe(res.data.drinks[0]);
       }
       catch(error) {
@@ -122,26 +122,28 @@ const PopUpRecipe: React.FC<Props> = (props) => {
   return (
     <ThemeProvider theme={theme}>
       <Overlay onClick={closePopUp}>
-        <Content key={idDrink}>
-        { idDrink != undefined && strDrinkThumb != undefined && strDrink != undefined &&
-          <FavoriteButton>
-            <ToggleFavorite id={idDrink} image={strDrinkThumb} name={strDrink} />
-          </FavoriteButton>
+        { recipe != undefined &&
+          <Content key={recipe.idDrink}>
+          { recipe.idDrink != undefined && recipe.strDrinkThumb != undefined && recipe.strDrink != undefined &&
+            <FavoriteButton>
+              <ToggleFavorite id={recipe.idDrink} image={recipe.strDrinkThumb} name={recipe.strDrink} />
+            </FavoriteButton>
+          }
+            <ContentTop>
+              <ContentImage>
+                <img src={recipe.strDrinkThumb} alt={recipe.strDrink + 'image'} />
+              </ContentImage>
+              <ContentDescription>
+                <h2>{recipe.strDrink}</h2>
+                <div>
+                  <p>{recipe.strInstructions}</p>
+                </div>
+              </ContentDescription>
+            </ContentTop>
+            <hr style={{margin: '1rem 0'}}></hr>
+            <button onClick={closePopUp}>close</button>
+          </Content>
         }
-          <ContentTop>
-            <ContentImage>
-              <img src={strDrinkThumb} alt={strDrink + 'image'} />
-            </ContentImage>
-            <ContentDescription>
-              <h2>{strDrink}</h2>
-              <div>
-                <p>{strInstructions}</p>
-              </div>
-            </ContentDescription>
-          </ContentTop>
-          <hr style={{margin: '1rem 0'}}></hr>
-          <button onClick={closePopUp}>close</button>
-        </Content>
       </Overlay>
     </ThemeProvider>
   )
