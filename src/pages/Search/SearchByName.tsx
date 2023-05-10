@@ -34,6 +34,13 @@ const FirstLetterLabel = styled.label`
   cursor: pointer;
 `
 
+const NoResult = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  color: ${(props) => props.theme.secondary_background_color};
+`
+
 const SearchByName: React.FC = () => {
   const theme = useSelector((state: RootState) => state.theme);
   const firstLetters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
@@ -48,7 +55,6 @@ const SearchByName: React.FC = () => {
   useEffect(() => {
     if(firstLetter) {
       fetchName();
-      console.log(names);
     }
   }, [firstLetter])
   
@@ -80,13 +86,17 @@ const SearchByName: React.FC = () => {
           )
         })}
       </FirstLetters>
-      { firstLetter != "" && names.length != 0 && (
+      { firstLetter != "" && names != null && names.length != 0 && (
         <>
           <SearchBar category={'name'} dataList={names} placeholder={'search recipes by name'} firstLetter={firstLetter} />
           { names.length != 0 && <CardContainer category={'name'} dataList={names} /> }
         </>
-      )
-      }
+      )}
+      { firstLetter != "" && names == null && (
+        <NoResult>
+          <h2>no recipe</h2>
+        </NoResult> 
+      )}
     </ThemeProvider>
   )
 }

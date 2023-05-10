@@ -1,20 +1,21 @@
+import { useState } from 'react';
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
 import ToggleFavorite from './ToggleFavorite';
+import PopUpRecipe from './PopUpRecipe';
 
 const CardDiv = styled.div`
+  position: relative;
   width: 100%;
   height: 350px;
 `
 
 const FavoriteButton = styled.div`
   position: absolute;
-  z-index: 5;
-  top: 0;
+  bottom: 0;
   right: 1rem;
   font-size: 3rem;
-  color: red;
   background-color: transparent;
+  z-index: 1;
 `
 
 const CardImage = styled.div`
@@ -35,7 +36,8 @@ const CardImage = styled.div`
     p {
       height: 100%;
       line-height: 5rem;
-      text-align: center;
+      padding-left: 2rem;
+      text-align: left;
       font-size: 1.5rem;
       color: white;
     }
@@ -52,21 +54,17 @@ type Props = {
 
 const Card: React.FC<Props> = (props) => {
   const { recipeData } = props;
-  const navigate = useNavigate();
-
-  function handleRoute(id: string) {
-    navigate(`/search/${id}`);
-  }
+  const [ show, setShow ] = useState(false);
 
   return (
     <CardDiv 
       key={recipeData.idDrink}
-      onClick={() => handleRoute(recipeData.idDrink)}
-    >
-      <CardImage>
-        <FavoriteButton>
-          <ToggleFavorite id={recipeData.idDrink} image={recipeData.strDrinkThumb} name={recipeData.strDrink} />
-        </FavoriteButton>
+      >
+      { show === true && <PopUpRecipe id={recipeData.idDrink} show={show} setShow={setShow} /> }
+      <FavoriteButton>
+        <ToggleFavorite id={recipeData.idDrink} image={recipeData.strDrinkThumb} name={recipeData.strDrink} />
+      </FavoriteButton>
+      <CardImage onClick={() => ( show === false ? setShow(true) : setShow(false))}>
         <img src={recipeData.strDrinkThumb} alt={recipeData.strDrink + 'image'} />
         <div className='drinkName'>
           <p>{recipeData.strDrink}</p>

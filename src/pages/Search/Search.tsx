@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import SearchByIngredient from './SearchByIngredient';
 import SearchByName from './SearchByName';
+import PopUpRecipe from '../../components/PopUpRecipe';
 
 const SearchContainer = styled.div`
   padding: 9rem 7rem;
@@ -49,6 +50,7 @@ const Search: React.FC = () => {
   const categories = ['Name', 'Ingredient', 'Random'];
 
   const [ selected, setSelected ] = useState(""); //user select
+  const [ show, setShow ] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     switch(e.target.value) {
@@ -59,7 +61,8 @@ const Search: React.FC = () => {
         setSelected('Ingredient');
         break;
       case 'Random':
-        setSelected('Random');
+        // setSelected('Random');
+        setShow(true);
         break;
     }
   }
@@ -86,6 +89,7 @@ const Search: React.FC = () => {
         </CategoryContainer>
         { selected === 'Name' && <SearchByName />}
         { selected === 'Ingredient' && <SearchByIngredient /> }
+        { show === true && <PopUpRecipe category='random' show={show} setShow={setShow} /> }
       </SearchContainer>
     </ThemeProvider>
   )
