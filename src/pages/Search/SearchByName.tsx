@@ -3,7 +3,7 @@ import { RootState } from '../../redux/store';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled, { ThemeProvider } from 'styled-components';
-import SearchBar from './SearchBar';
+// import SearchBar from './SearchBar';
 import CardContainer from '../../components/CardContainer';
 
 const FirstLetters = styled.div`
@@ -58,7 +58,7 @@ const SearchByName: React.FC = () => {
   const firstLetters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 
   const [ firstLetter, setFirstLetter ] = useState("");
-  const [ names, setNames ] = useState([]);
+  const [ names, setNames ] = useState<[]>([]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFirstLetter(e.target.value);
@@ -100,7 +100,7 @@ const SearchByName: React.FC = () => {
       </FirstLetters>
       { firstLetter != "" && names != null && names.length != 0 && (
         <>
-          <SearchBar category={'name'} dataList={names} placeholder={'search recipes by name'} firstLetter={firstLetter} />
+          {/* <SearchBar category={'name'} dataList={names} placeholder={'search recipes by name'} firstLetter={firstLetter} /> */}
           { names.length != 0 && <CardContainer category={'name'} dataList={names} /> }
         </>
       )}

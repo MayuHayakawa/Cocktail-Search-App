@@ -114,7 +114,7 @@ const Search: React.FC = () => {
         </CategoryContainer>
         { selected === 'Name' && <SearchByName />}
         { selected === 'Ingredient' && <SearchByIngredient /> }
-        { selected === 'Random' && <PopUpRecipe category='random' setSelected={setSelected} show={show} setShow={setShow} /> }
+        { selected === 'Random' && <PopUpRecipe category='random' id='' setSelected={setSelected} show={show} setShow={setShow} /> }
       </SearchContainer>
     </ThemeProvider>
   )

@@ -59,8 +59,8 @@ const Card: React.FC<Props> = (props) => {
   return (
     <CardDiv 
       key={recipeData.idDrink}
-      >
-      { show === true && <PopUpRecipe id={recipeData.idDrink} show={show} setShow={setShow} /> }
+    >
+      { show === true && <PopUpRecipe category={''} id={recipeData.idDrink} show={show} setShow={setShow} /> }
       <FavoriteButton>
         <ToggleFavorite id={recipeData.idDrink} image={recipeData.strDrinkThumb} name={recipeData.strDrink} />
       </FavoriteButton>

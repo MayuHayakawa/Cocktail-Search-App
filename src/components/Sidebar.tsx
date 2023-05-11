@@ -13,17 +13,6 @@ import {
   TbSunFilled,
 } from "react-icons/all";
 
-const appearFromRight = keyframes`
-  from {
-    opacity: 0;
-    transform: translateX(60px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-  `
-
 const appearFromLeft = keyframes`
   from {
     opacity: 0;

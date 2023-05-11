@@ -4,18 +4,25 @@ import { RootState } from "../store";
 
 //fetch data
 //createAsyncThunk(action type/name, acync function)
-export const fetchAllIngredient = createAsyncThunk("ingredients/fetchIngredient", async () => {
-    const res = await axios.get('https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list');
-    return res.data.drinks;
-})
+export const fetchAllIngredient = createAsyncThunk<string[], void, { rejectValue: string }>("ingredients/fetchIngredient",
+    async () => {
+        try{
+            const res = await axios.get('https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list');
+            return res.data.drinks;
+        } catch(error) {
+            throw new Error('Failed to fetch ingredients.');
+        }
+    }
+);
 
 //set each data type
-type IngredientData = {
+export type IngredientData = {
+    strDrink: string
     strIngredient1: string
 }
 
 //set data list type
-type IngredientState = {
+export type IngredientState = {
     data: IngredientData[]
     status: 'idle' | 'pending' | 'succeeded' | 'rejected';
     error: string | undefined;
@@ -38,7 +45,10 @@ export const IngredientSlice = createSlice({
         })
         .addCase(fetchAllIngredient.fulfilled, (state, action) => {
             state.status = 'succeeded';
-            state.data = action.payload;
+            state.data = action.payload.map((ingredient: string) => ({
+                strDrink: 'initial data',
+                strIngredient1: ingredient
+            }));
         })
         .addCase(fetchAllIngredient.rejected, (state, action) => {
             state.status = 'rejected';
@@ -47,5 +57,5 @@ export const IngredientSlice = createSlice({
     },
 })
 
-export const ingredientList = ( state: RootState) => state.ingredientData
+export const IngredientList = ( state: RootState) => state.ingredientData
 export default IngredientSlice.reducer;

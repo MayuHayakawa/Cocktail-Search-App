@@ -12,7 +12,7 @@ const CardGrid = styled.div`
 `
 type Props = {
   category: string
-  dataList?: []
+  dataList: []
   keyword?: string
 }
 

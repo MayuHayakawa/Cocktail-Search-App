@@ -1,21 +1,21 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '../../redux/store';
+import { RootState, AppDispatch } from '../../redux/store';
 import { ThemeProvider } from 'styled-components';
-import { fetchAllIngredient, ingredientList } from '../../redux/RecipeSlice/IngredientSlice';
+import { fetchAllIngredient, IngredientList } from '../../redux/RecipeSlice/IngredientSlice';
 import { useEffect } from 'react';
 import SearchBar from './SearchBar';
 
 
 const SearchByIngredient: React.FC = () => {
   const theme = useSelector((state: RootState) => state.theme);
-  const dispatch = useDispatch();
-  const ingredients = useSelector(ingredientList);
+  const dispatch:AppDispatch = useDispatch();
+  const ingredients = useSelector(IngredientList);
 
   useEffect(() => {
     if(ingredients.status === 'idle'){
       dispatch(fetchAllIngredient());
     }
-  }, [ingredients.status])
+  }, [dispatch, ingredients.status])
 
   return (
     <ThemeProvider theme={theme}>

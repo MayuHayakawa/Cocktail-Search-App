@@ -2,17 +2,10 @@ import React, { useState, useEffect } from 'react'
 import styled, { ThemeProvider } from 'styled-components';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
+import { IngredientData } from '../../redux/RecipeSlice/IngredientSlice';
 import { TbSearch } from "react-icons/tb";
 import { CgClose } from "react-icons/cg";
 import CardContainer from '../../components/CardContainer';
-
-//set props type
-type Props = {
-  category: string
-  dataList: []
-  placeholder: string
-  firstLetter: string
-}
 
 const SearchBarContainer = styled.div`
   position: relative;
@@ -87,12 +80,19 @@ const AutocompleteContainer = styled.div`
   }
 `
 
+type Props = {
+  category: string
+  dataList: IngredientData[]
+  placeholder: string
+  firstLetter: string
+}
+
 const SearchBar: React.FC<Props> = (props) => {
   const { category, dataList, placeholder, firstLetter } = props;
   const theme = useSelector((state: RootState) => state.theme);
 
   const [ wordEntered, setWordEntered ] = useState(firstLetter);
-  const [ filteredData, setFilteredData ] = useState([]);
+  const [ filteredData, setFilteredData ] = useState<{strDrink: string, strIngredient1: string}[]>([]);
   const [ keyword, setKeyword ] = useState("");
   const [ isFocus, setIsFocus ] = useState(false);
 
@@ -100,7 +100,7 @@ const SearchBar: React.FC<Props> = (props) => {
     if(category === 'name') {
       setWordEntered(firstLetter);
     }
-  }, [firstLetter]);
+  }, [category, firstLetter]);
 
   useEffect(() => {
     if(category == 'name') {
@@ -126,20 +126,30 @@ const SearchBar: React.FC<Props> = (props) => {
         console.log(newFilter);
       }
     }
-  }, [wordEntered]);
+  }, [category, dataList, wordEntered]);
 
-  const checkInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const checkInput = (e: React.FormEvent<HTMLInputElement> | React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
-    if(wordEntered.includes(dataList)) {
-      setKeyword(wordEntered);
-    } else {
-      alert('there are not recipe');
-      console.log("nothing");
+    if(category === 'name') {
+      if(dataList.some(item => item.strDrink.includes(wordEntered))) {
+        setKeyword(wordEntered);
+      } else {
+        alert('there are not recipe');
+        console.log("nothing");
+      }
+    }
+    if(category === 'ingredient') {
+      if(dataList.some(item => item.strIngredient1.includes(wordEntered))) {
+        setKeyword(wordEntered);
+      } else {
+        alert('there are not recipe');
+        console.log("nothing");
+      }
     }
     setIsFocus(false);
   }
   
-  const clearInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const clearInput = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     setFilteredData(dataList);
     setWordEntered('');
@@ -214,7 +224,7 @@ const SearchBar: React.FC<Props> = (props) => {
           </AutocompleteContainer>
         )}
       </SearchBarContainer>
-      { category === 'ingredient' && keyword && keyword.length != 0 && <CardContainer category={'ingredient'} keyword={keyword} />}
+      { category === 'ingredient' && keyword && keyword.length != 0 && <CardContainer category={'ingredient'} dataList={[]} keyword={keyword} />}
     </ThemeProvider>
   )
 }

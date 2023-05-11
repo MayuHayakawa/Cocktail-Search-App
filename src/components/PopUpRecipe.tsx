@@ -183,11 +183,11 @@ const IngredientContainer = styled.div`
 ` 
 
 type Props = {
-  category?: string 
-  id?: string
+  category: string 
+  id: string
   show: boolean
   setShow: React.Dispatch<React.SetStateAction<boolean>> //useState of Card Component
-  setSelected?:  React.Dispatch<React.SetStateAction<string>>
+  setSelected?: React.Dispatch<React.SetStateAction<string>>
 }
 
 type Recipe = {
@@ -254,7 +254,7 @@ const PopUpRecipe: React.FC<Props> = (props) => {
 
   const closePopUp = () => {
     setShow(false);
-    if(category === 'random') {
+    if(category === 'random' && setSelected) {
       setSelected('');
     }
   }

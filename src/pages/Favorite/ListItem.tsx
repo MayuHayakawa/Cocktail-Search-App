@@ -202,7 +202,7 @@ const ListItem: React.FC<Props> = (props) => {
   const dispatch = useDispatch();
   const { id, image, name, likedTime, updatedTime, note } = props.item;
 
-  const inputNote = useRef(null);
+  const inputNote = useRef<HTMLInputElement>(null);
   const [ show, setShow ] = useState(false);
 
   const [ visible, setVisible ] = useState('visible');
@@ -217,29 +217,32 @@ const ListItem: React.FC<Props> = (props) => {
   }, [isDesktop])
 
   //for stop propagation to calling popuprecipe component
-  const handleFocus = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFocus = (e: React.MouseEvent<HTMLFormElement, MouseEvent>) => {
     e.stopPropagation();
-    inputNote.current.focus();
+    if(inputNote.current != null) {
+      inputNote.current.focus();
+    }
   }
 
-  const handleNote = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleNote = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const now = new Date();
-    const updatedTime = now.toLocaleString();
-    const newNote = inputNote.current.value;
-    dispatch(updateNote({ id: id, image: image, name: name, likedTime: likedTime, updatedTime: updatedTime, note: newNote}));
-    inputNote.current.value = null;
+    if(inputNote.current != null && inputNote.current.value != null) {
+      const now = new Date();
+      const updatedTime = now.toLocaleString();
+      const newNote = inputNote.current.value;
+      dispatch(updateNote({ id: id, image: image, name: name, likedTime: likedTime, updatedTime: updatedTime, note: newNote}));
+      inputNote.current.value = '';
+    }
   }
 
-  const handleRemove = (e) => {
+  const handleRemove = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.stopPropagation();
     dispatch(removeRecipe({ id: id, image: image, name: name, likedTime: likedTime }));
   }
 
   return (
     <ThemeProvider theme={theme}>
-      {show === true && <PopUpRecipe id={id} show={show} setShow={setShow} />}
-      {/* <ListContainer key={id} onClick={() => ( show === false ? setShow(true) : setShow(false))}> */}
+      {show === true && <PopUpRecipe category={''} id={id} show={show} setShow={setShow} />}
       {visible === 'visible' &&
         <ListContainer key={id} onClick={() => (show === false ? setShow(true) : setShow(false))}>
           <CocktailName>
