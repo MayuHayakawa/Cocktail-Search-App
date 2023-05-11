@@ -34,8 +34,14 @@ const SearchInput = styled.input`
   font-size: 1.3rem;
   border: 1px solid ${(props) => props.theme.third_background_color};
   border-radius: 10px;
+  @media screen and (max-width: 768px){
+    font-size: 1rem;
+  }
   &::placeholder {
     color: ${(props) => props.theme.third_background_color};
+    @media screen and (max-width: 768px){
+      font-size: 1rem;
+    }
   }
 `
 

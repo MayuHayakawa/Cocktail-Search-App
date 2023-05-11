@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
@@ -5,8 +6,8 @@ import { Link } from 'react-router-dom';
 import { changeTheme } from '../redux/ThemeSlice/ThemeSlice';
 import { lightTheme, darkTheme } from '../redux/ThemeSlice/Theme';
 import { TbMoonFilled, TbSunFilled } from 'react-icons/tb';
-
-
+import { useMediaQuery } from 'react-responsive';
+import Sidebar from './Sidebar';
 
 const Nav = styled.div`
   position: fixed;
@@ -57,33 +58,50 @@ const Navbar: React.FC = () => {
   const dispatch = useDispatch();
   const theme = useSelector((state: RootState) => state.theme);
 
+  const [ visible, setVisible ] = useState('visible');
+  const isDesktop = useMediaQuery({ query: '(min-width: 1025px)'})
+  // const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1024px)'})
+
+  useEffect(() => {
+    if(!isDesktop) {
+      setVisible('hidden');
+    } else {
+      setVisible('visible');
+    }
+  }, [isDesktop])
+
   return (
     <ThemeProvider theme={theme}>
-      <Nav>
-        <h1>
-          <Link to="/">Cocktail Recipes Search</Link>
-        </h1>
-        <ul>
-          <li>
-            <Link to="/">HOME</Link>
-          </li>
-          <li>
-            <Link to="/search">SEARCH</Link>
-          </li>
-          <li>
-            <Link to="/favorite">FAVORITE</Link>
-          </li>
-          {theme === lightTheme ? (
-            <Button onClick={() => dispatch(changeTheme(darkTheme))}>
-              <TbMoonFilled />
-            </Button>
-          ) : (
-            <Button onClick={() => dispatch(changeTheme(lightTheme))}>
-              <TbSunFilled />
-            </Button>
-          )}
-        </ul>
-      </Nav>
+      { visible === 'visible' &&
+        <Nav>
+          <h1>
+            <Link to="/">Cocktail Recipes Search</Link>
+          </h1>
+          <ul>
+            <li>
+              <Link to="/">HOME</Link>
+            </li>
+            <li>
+              <Link to="/search">SEARCH</Link>
+            </li>
+            <li>
+              <Link to="/favorite">FAVORITE</Link>
+            </li>
+            {theme === lightTheme ? (
+              <Button onClick={() => dispatch(changeTheme(darkTheme))}>
+                <TbMoonFilled />
+              </Button>
+            ) : (
+              <Button onClick={() => dispatch(changeTheme(lightTheme))}>
+                <TbSunFilled />
+              </Button>
+            )}
+          </ul>
+        </Nav>
+      }
+      { visible === 'hidden' &&
+        <Sidebar />
+      }
     </ThemeProvider>
   )
 }

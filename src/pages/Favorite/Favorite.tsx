@@ -2,16 +2,23 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { FavoriteList, FavoriteRecipeData } from '../../redux/FavoriteSlice/FavoriteSlice';
+import { useMediaQuery } from 'react-responsive';
 import styled, { ThemeProvider }from 'styled-components';
 import ListItem from './ListItem';
 
 const FavoriteContainer = styled.div`
-  padding: 9rem 7rem ;
+  padding: 9rem 2rem ;
   width: 100%;
   height: 100%;
   color: ${(props) => props.theme.secondary_background_color};
+  @media screen and (max-width: 768px){
+      padding: 7rem 1rem;
+  }
   h1{
     padding-bottom: 1rem;
+    @media screen and (max-width: 768px){
+      font-size: 1.5rem;
+    }
   }
 `
 
@@ -36,8 +43,8 @@ const FavoriteListContainer = styled.div`
 const FavoriteListTitle = styled.div`
   display: grid;
   padding: 1rem 0;
-  gap: 1rem;
-  grid-template-columns: 4fr 2fr 2fr 4fr 1fr;
+  gap: 0.5rem;
+  grid-template-columns: 5fr 2fr 2fr 4fr 1fr;
   h3{
     font-size: 1.5rem;
   }
@@ -59,8 +66,16 @@ const Favorite: React.FC = () => {
   const theme = useSelector((state: RootState) => state.theme);
   const listItems = useSelector(FavoriteList);
   const [ itemArray, setItemArray ] = useState<FavoriteRecipeData[]>([]);
-  console.log(listItems); //object
-  console.log(itemArray);
+  const [ visible, setVisible ] = useState('visible');
+  const isDesktop = useMediaQuery({ query: '(min-width: 1025px)'})
+
+  useEffect(() => {
+    if(!isDesktop) {
+      setVisible('hidden');
+    } else {
+      setVisible('visible');
+    }
+  }, [isDesktop])
 
   useEffect(() => {
     if(listItems != undefined && listItems.list.length > 1) {
@@ -77,22 +92,24 @@ const Favorite: React.FC = () => {
         <h1>Your favorite cocktails</h1>
         <BoldLine />
         <FavoriteListContainer>
-          <FavoriteListTitle>
-            <div>
-              <h3>Cocktail name</h3>
-            </div>
-            <div>
-              <h3>Liked at</h3>
-            </div>
-            <div>
-              <h3>Updated at</h3>
-            </div>
-            <div>
-              <h3>Your note</h3>
-            </div>
-            {/* for keep delete burron space */}
-            <div></div>
-          </FavoriteListTitle>
+          { visible === 'visible' &&
+            <FavoriteListTitle>
+              <div>
+                <h3>Cocktail name</h3>
+              </div>
+              <div>
+                <h3>Liked at</h3>
+              </div>
+              <div>
+                <h3>Updated at</h3>
+              </div>
+              <div>
+                <h3>Your note</h3>
+              </div>
+              {/* for keep delete burron space */}
+              <div></div>
+            </FavoriteListTitle>
+          }
           <NomalLine />
           { listItems != undefined && itemArray.length > 0 && (
             <div>

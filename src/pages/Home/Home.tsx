@@ -1,6 +1,8 @@
+import { useState, useEffect } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
+import { useMediaQuery } from 'react-responsive';
 import { lightTheme } from '../../redux/ThemeSlice/Theme';
 import { Link } from 'react-router-dom';
 import { motion as m } from 'framer-motion'
@@ -27,6 +29,21 @@ const ImageContainer = styled.div`
     }
 `
 
+const Title = styled.div`
+  position: absolute;
+  width: 25rem;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  font-size: 2.5rem;
+  color: ${(props) => props.theme.primary_font_color};
+`
+
 const ButtonContainer = styled.div`
   width: 20rem;
   height: 5rem;
@@ -36,6 +53,10 @@ const ButtonContainer = styled.div`
   transform: translate(-50%, -50%);
   -webkit-transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
+  @media screen and (max-width: 1024px){
+    width: 15rem;
+    top: 70%;
+  }
   button {
     width: 100%;
     height: 100%;
@@ -44,11 +65,24 @@ const ButtonContainer = styled.div`
     background-color: ${(props) => props.theme.primary_font_color};
     border: solid 2px ${(props) => props.theme.secondary_background_color};
     cursor: pointer;
+    @media screen and (max-width: 1024px){
+      font-size: 2rem;
+    }
   }
 `
 
 const Home: React.FC = () => {
   const theme = useSelector((state: RootState) => state.theme);
+  const [ visible, setVisible ] = useState('visible');
+  const isDesktop = useMediaQuery({ query: '(min-width: 1025px)'})
+
+  useEffect(() => {
+    if(!isDesktop) {
+      setVisible('hidden');
+    } else {
+      setVisible('visible');
+    }
+  }, [isDesktop])
 
   return (
     <ThemeProvider theme={theme}>
@@ -73,6 +107,13 @@ const Home: React.FC = () => {
             )}
           </m.div>
         </ImageContainer>
+        { visible === 'hidden' &&
+          <Title>
+            <h1>Cocktail</h1>
+            <h1>Recipes</h1>
+            <h1>Search</h1>
+          </Title>
+        }
         <ButtonContainer>
           <Link to="search">
             <m.button

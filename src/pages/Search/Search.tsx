@@ -8,10 +8,24 @@ import PopUpRecipe from '../../components/PopUpRecipe';
 
 const SearchContainer = styled.div`
   padding: 9rem 7rem;
-  width: 100vw;
+  width: 100%;
   height: 100%;
+  @media screen and (max-width: 1024px){
+    padding: 3rem;
+  }
+  @media screen and (max-width: 768px){
+    padding: 1rem;
+  }
   h1 {
     color: ${(props) => props.theme.secondary_background_color};
+    @media screen and (max-width: 1024px){
+      padding: 1rem 5rem;
+      font-size: 3rem;
+    }
+    @media screen and (max-width: 768px){
+      padding: 4rem 4rem 1rem 4rem;
+      font-size: 2rem;
+    }
   }
 `
 
@@ -20,6 +34,11 @@ const CategoryContainer = styled.div`
   display: flex;
   justify-content: space-between;
   text-align: center;
+  @media screen and (max-width: 768px){
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
 `
 
 const CategoryInput = styled.input`
@@ -40,6 +59,12 @@ const CategoryLabel = styled.label`
   border: 3px solid ${(props) => props.theme.primary_background_color};
   border-radius: 50px;
   padding-top: 0.3rem;
+  @media screen and (max-width: 1024px){
+    width: 10rem;
+  }
+  @media screen and (max-width: 768px){
+    width: 15rem;
+  }
   &:hover {
     cursor: pointer;
   }

@@ -16,6 +16,9 @@ const FirstLetters = styled.div`
   justify-content: space-evenly;
   border: 1px solid ${(props) => props.theme.third_background_color};
   border-radius: 10px;
+  @media screen and (max-width: 768px){
+    width: 100%;
+  }
 `
 
 const FirstLetterInput = styled.input`
@@ -32,6 +35,10 @@ const FirstLetterLabel = styled.label`
   background-color: transparent;
   border: none;
   cursor: pointer;
+  @media screen and (max-width: 768px){
+    font-size: 1rem;
+    font-weight: 500;
+  }
 `
 
 const NoResult = styled.div`

@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../redux/store';
-import styled, { ThemeProvider } from 'styled-components';
+import { ThemeProvider } from 'styled-components';
 import { fetchAllIngredient, ingredientList } from '../../redux/RecipeSlice/IngredientSlice';
 import { useEffect } from 'react';
 import SearchBar from './SearchBar';

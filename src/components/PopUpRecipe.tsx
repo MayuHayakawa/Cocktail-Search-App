@@ -21,10 +21,15 @@ const Overlay = styled.div`
 
 const Content = styled.div`
   position: relative;
-  width:80%;
+  width: 80%;
   height: 80%;
   padding: 2rem;
   background:#fff;
+  @media screen and (max-width: 1024px){
+    width: 90%;
+    height: 90%;
+    overflow: scroll;
+  }
 `
 
 const CloseButton = styled.button`
@@ -35,9 +40,21 @@ const CloseButton = styled.button`
   left: -2rem;
   background-color: transparent;
   border: none;
+  z-index: 1;
+  @media screen and (max-width: 1024px){
+    top: -0.5rem;
+    left: -0.5rem;
+  }
+  @media screen and (max-width: 768px){
+    top: -1.5rem;
+    left: -1.5rem;
+  }
   .icon{
     font-size: 6rem;
     color: ${(props) => props.theme.primary_background_color};
+    @media screen and (max-width: 768px){
+      font-size: 3rem;
+    }
   }
 `
 
@@ -47,18 +64,37 @@ const FavoriteButton = styled.div`
   top: -0.5rem;
   font-size: 5rem;
   background-color: transparent;
+  z-index: 1;
+  @media screen and (max-width: 1024px){
+    top: -0.5rem;
+  }
+  @media screen and (max-width: 768px){
+    font-size: 3rem;
+    top: 0;
+  }
 `
 
 const ContentTop = styled.div`
+  position: relative;
   width: 100%;
   height: 60%;
   display: flex;
   justify-content: space-between;
+  @media screen and (max-width: 1024px){
+    height: 100%;
+  }
+  @media screen and (max-width: 768px){
+    height: 60%;
+  }
+
 `
 
 const ContentImage = styled.div`
   width: 40%;
   height: 100%;
+  @media screen and (max-width: 1024px){
+    width: 100%;
+  }
   img{
     width: 100%;
     height: 100%;
@@ -71,15 +107,39 @@ const ContentDescription = styled.div`
   flex-direction: column;
   width: 55%;
   height: 100%;
+  @media screen and (max-width: 1024px){
+    position: absolute;
+    width: 100%;
+    height: 30%;
+    bottom: 0%;
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+  @media screen and (max-width: 768px){
+    height: 40%;
+  }
   h2{
     font-size: 2.5rem;
     text-align: center;
     margin: 1rem 0;
+    @media screen and (max-width: 1024px){
+      color: white;
+      font-size: 2rem;
+    }
+    @media screen and (max-width: 768px){
+      font-size: 1.5rem;
+    }
   }
   div{
     overflow: scroll;
+    @media screen and (max-width: 1024px){
+      padding: 0 1rem 1rem 1rem;
+    }
     p{
       font-size: 1.5rem;
+      @media screen and (max-width: 1024px){
+        color: white;
+        font-size: 1rem;
+      }
     }
   }
 `
@@ -101,14 +161,25 @@ const ContentBottom = styled.div`
     width: 100%;
     text-align: center;
     font-size: 2rem;
+    @media screen and (max-width: 1024px){
+      font-size: 1.5rem;
+    }
   }
 `
 
+//modify scroll(can't see left item)
 const IngredientContainer = styled.div`
   display: flex;
   justify-content: center;
-  gap: 3rem;
   text-align: center;
+  gap: 2rem;
+  overflow-x: scroll;
+  @media screen and (max-width: 1024px){
+    display: grid;
+    gap: 1rem;
+    place-content: center;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 100px));
+  }
 ` 
 
 type Props = {
@@ -270,7 +341,7 @@ const PopUpRecipe: React.FC<Props> = (props) => {
                       <img src={`https://www.thecocktaildb.com/images/ingredients/${recipe.strIngredient1}-Small.png`}/>
                     </div>
                       <div>{recipe.strIngredient1}</div>
-                      <div>r{recipe.strMeasure1}</div>
+                      <div>{recipe.strMeasure1}</div>
                   </div>
                 }
                 { recipe.strIngredient2 != null &&
@@ -279,7 +350,7 @@ const PopUpRecipe: React.FC<Props> = (props) => {
                       <img src={`https://www.thecocktaildb.com/images/ingredients/${recipe.strIngredient2}-Small.png`}/>
                     </div>
                       <div>{recipe.strIngredient2}</div>
-                      <div>r{recipe.strMeasure2}</div>
+                      <div>{recipe.strMeasure2}</div>
                   </div>
                 }
                 { recipe.strIngredient3 != null &&
@@ -288,7 +359,7 @@ const PopUpRecipe: React.FC<Props> = (props) => {
                       <img src={`https://www.thecocktaildb.com/images/ingredients/${recipe.strIngredient3}-Small.png`}/>
                     </div>
                       <div>{recipe.strIngredient3}</div>
-                      <div>r{recipe.strMeasure3}</div>
+                      <div>{recipe.strMeasure3}</div>
                   </div>
                 }
                 { recipe.strIngredient4 != null &&
@@ -297,7 +368,7 @@ const PopUpRecipe: React.FC<Props> = (props) => {
                       <img src={`https://www.thecocktaildb.com/images/ingredients/${recipe.strIngredient4}-Small.png`}/>
                     </div>
                       <div>{recipe.strIngredient4}</div>
-                      <div>r{recipe.strMeasure4}</div>
+                      <div>{recipe.strMeasure4}</div>
                   </div>
                 }
                 { recipe.strIngredient5 != null &&
@@ -306,7 +377,7 @@ const PopUpRecipe: React.FC<Props> = (props) => {
                       <img src={`https://www.thecocktaildb.com/images/ingredients/${recipe.strIngredient5}-Small.png`}/>
                     </div>
                       <div>{recipe.strIngredient5}</div>
-                      <div>r{recipe.strMeasure5}</div>
+                      <div>{recipe.strMeasure5}</div>
                   </div>
                 }
                 { recipe.strIngredient6 != null &&
@@ -315,7 +386,7 @@ const PopUpRecipe: React.FC<Props> = (props) => {
                       <img src={`https://www.thecocktaildb.com/images/ingredients/${recipe.strIngredient6}-Small.png`}/>
                     </div>
                       <div>{recipe.strIngredient6}</div>
-                      <div>r{recipe.strMeasure6}</div>
+                      <div>{recipe.strMeasure6}</div>
                   </div>
                 }
                 { recipe.strIngredient7 != null &&
@@ -324,7 +395,7 @@ const PopUpRecipe: React.FC<Props> = (props) => {
                       <img src={`https://www.thecocktaildb.com/images/ingredients/${recipe.strIngredient7}-Small.png`}/>
                     </div>
                       <div>{recipe.strIngredient7}</div>
-                      <div>r{recipe.strMeasure7}</div>
+                      <div>{recipe.strMeasure7}</div>
                   </div>
                 }
               </IngredientContainer>
