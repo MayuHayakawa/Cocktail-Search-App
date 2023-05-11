@@ -36,9 +36,14 @@ const FirstLetterLabel = styled.label`
 
 const NoResult = styled.div`
   width: 100%;
+  height: 8rem;
+  padding-top: 3rem;
   display: flex;
   justify-content: center;
   color: ${(props) => props.theme.secondary_background_color};
+  h2{
+    font-size: 2rem;
+  }
 `
 
 const SearchByName: React.FC = () => {

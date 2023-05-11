@@ -24,9 +24,8 @@ const CardContainer: React.FC<Props> = (props) => {
   useEffect(() => {
     if(category === 'ingredient') {
       fetchIngredient();
-      console.log(recipesByIngredient);
     }
-  },[keyword]);
+  });
 
   async function fetchIngredient() {
     try {

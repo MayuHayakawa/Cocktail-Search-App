@@ -9,33 +9,65 @@ const FavoriteContainer = styled.div`
   padding: 9rem 7rem;
   width: 100vw;
   height: 100%;
-  color: ${(props) => props.theme.secondary_background_color};;
-  `
+  color: ${(props) => props.theme.secondary_background_color};
+  h1{
+    padding-bottom: 1rem;
+  }
+`
+
+const BoldLine = styled.div`
+  width: 100%;
+  height: 2px;
+  background-color: ${(props) => props.theme.secondary_background_color};
+`
+
+const NomalLine = styled.div`
+  width: 100%;
+  height: 1px;
+  background-color: ${(props) => props.theme.third_background_color};
+`
 
 const FavoriteListContainer = styled.div`
   display: flex;
   flex-direction: column;
-  color: ${(props) => props.theme.primary_background_color};;
+  color: ${(props) => props.theme.primary_background_color};
 `
 
 const FavoriteListTitle = styled.div`
   display: grid;
-  grid-template-columns: 30% 15% 15% 40%;
+  padding: 1rem 1rem;
+  gap: 1rem;
+  grid-template-columns: 3fr 2fr 2fr 3fr 1fr;
+  h3{
+    font-size: 1.5rem;
+  }
+`
+
+const NoResult = styled.div`
+  width: 100%;
+  height: 8rem;
+  padding-top: 3rem;
+  display: flex;
+  justify-content: center;
+  color: ${(props) => props.theme.secondary_background_color};
+  h2{
+    font-size: 2rem;
+  }
 `
 
 const Favorite: React.FC = () => {
   const theme = useSelector((state: RootState) => state.theme);
   const listItems = useSelector(FavoriteList);
-  const [ itemArray, setItemArray ] = useState<[FavoriteRecipeData]>();
-  console.log(listItems);
+  const [ itemArray, setItemArray ] = useState<FavoriteRecipeData[]>([]);
+  console.log(listItems); //object
   console.log(itemArray);
 
   useEffect(() => {
     if(listItems != undefined && listItems.list.length > 1) {
       const newArray = listItems.list.slice(1);//remove initialState
-      if(newArray != undefined) {
-        setItemArray(newArray);
-      }
+      setItemArray(newArray);
+    } else {
+      setItemArray([]);
     }
   }, [listItems]);
   
@@ -43,6 +75,7 @@ const Favorite: React.FC = () => {
     <ThemeProvider theme={theme}>
       <FavoriteContainer>
         <h1>Your favorite cocktails</h1>
+        <BoldLine />
         <FavoriteListContainer>
           <FavoriteListTitle>
             <div>
@@ -57,20 +90,24 @@ const Favorite: React.FC = () => {
             <div>
               <h3>Your note</h3>
             </div>
+            {/* for keep delete burron space */}
+            <div></div>
           </FavoriteListTitle>
-          { listItems != undefined && itemArray != undefined && itemArray.length > 0 ? (
+          <NomalLine />
+          { listItems != undefined && itemArray.length > 0 && (
             <div>
               {itemArray.map((item) => {
-                return (<ListItem item={item} />)
+                return (<ListItem key={item.id} item={item} />)
               })}
             </div>
-          ):(
-            <div>no recipe</div>
+          )}
+          { listItems != undefined && itemArray.length === 0 && (
+            <NoResult>
+              <h2>no recipe</h2>
+            </NoResult> 
           )}
         </FavoriteListContainer>
       </FavoriteContainer>
-
-
     </ThemeProvider>
   )
 }

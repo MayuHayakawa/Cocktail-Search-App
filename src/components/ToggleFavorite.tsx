@@ -42,12 +42,12 @@ const ToggleFavorite: React.FC<Props> = (props) => {
   }
   
   const handleRemove = () => {
-    dispatch(removeRecipe(id));
+    dispatch(removeRecipe({ id: id, image: image, name: name, likedTime: '' }));
   }
 
   return (
     <ThemeProvider theme={theme}>
-      <div key={id}>
+      <div key={id} onClick={(e) => e.stopPropagation()}>
         { idArray.length > 0 && idArray.includes(id) ? (
           <ToggleButton onClick={handleRemove}>
             <HiHeart />

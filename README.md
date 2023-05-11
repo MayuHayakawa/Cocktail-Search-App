@@ -21,3 +21,6 @@ https://github.com/kilkelly/redux-localstorage-simple
 
 https://wonwon-eater.com/redux-toolkit-localstorage-simple/
 >Redux ToolkitでlocalStorageにデータを保存するには
+
+https://tech.mychma.com/javascript-eventbubbling/1896/
+>イベント伝播の仕組みや種類、伝播を制御する方法

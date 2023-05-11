@@ -33,19 +33,20 @@ export const FavoriteSlice = createSlice({
     initialState,
     reducers: {
         addRecipe: (state, action: PayloadAction<FavoriteRecipeData>) => {
-            console.log(action.payload); //object
             state.list.push(action.payload);
         },
         updateNote: (state, action: PayloadAction<FavoriteRecipeData>) => {
+            console.log(action.payload);
             state.list.map((recipe) => {
+                console.log(recipe.id);
                 if(recipe.id === action.payload.id) {
-                    recipe.note = action.payload.note
+                    recipe.updatedTime = action.payload.updatedTime;
+                    recipe.note = action.payload.note;
                 }
             })
         },
-        removeRecipe: (state, action: PayloadAction<string>) => {
-            console.log(action.payload);
-            state.list = state.list.filter((item) =>  item.id != action.payload)
+        removeRecipe: (state, action: PayloadAction<FavoriteRecipeData>) => {
+            state.list = state.list.filter((item) =>  item.id != action.payload.id)
         },
     }
 })
