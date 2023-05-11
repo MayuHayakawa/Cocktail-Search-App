@@ -6,8 +6,8 @@ import styled, { ThemeProvider }from 'styled-components';
 import ListItem from './ListItem';
 
 const FavoriteContainer = styled.div`
-  padding: 9rem 7rem;
-  width: 100vw;
+  padding: 9rem 7rem ;
+  width: 100%;
   height: 100%;
   color: ${(props) => props.theme.secondary_background_color};
   h1{
@@ -35,9 +35,9 @@ const FavoriteListContainer = styled.div`
 
 const FavoriteListTitle = styled.div`
   display: grid;
-  padding: 1rem 1rem;
+  padding: 1rem 0;
   gap: 1rem;
-  grid-template-columns: 3fr 2fr 2fr 3fr 1fr;
+  grid-template-columns: 4fr 2fr 2fr 4fr 1fr;
   h3{
     font-size: 1.5rem;
   }

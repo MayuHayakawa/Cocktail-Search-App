@@ -9,9 +9,9 @@ import PopUpRecipe from '../../components/PopUpRecipe';
 const ListContainer = styled.div`
   width: 100%;
   height: 8rem;
-  padding: 1rem;
+  padding: 1rem 0;
   display: grid;
-  grid-template-columns: 3fr 2fr 2fr 3fr 1fr;
+  grid-template-columns: 4fr 2fr 2fr 4fr 1fr;
   gap: 1rem;
   &:hover{
     color: ${(props) => props.theme.primary_font_color};
@@ -43,8 +43,8 @@ const TimeContainer = styled.div`
   height: 100%;
   h4{
     height: 100%;
-    line-height: 5rem;
-    font-size: 1.1rem;
+    padding-top: 2.5rem;
+    font-size: 0.8rem;
   }
 `
 
@@ -59,9 +59,10 @@ const NoteForm = styled.form`
     width: 100%;
     height: 90%;
     font-size: 1.1rem;
-    padding-left: 1rem;
+    padding: 0 1rem;
     border: 1px solid ${(props) => props.theme.primary_background_color};
     border-radius: 10px;
+    text-overflow: ellipsis;
     &::placeholder{
       color: ${(props) => props.theme.primary_background_color};
     }
@@ -71,14 +72,15 @@ const NoteForm = styled.form`
   }
   button{
     position: absolute;
-    right: 1rem;
-    height: 3rem;
-    width: 3rem;
+    right: 0.5rem;
+    bottom: 0.5rem;
+    height: 2rem;
+    width: 2rem;
     background-color: transparent;
     border: none;
     .icon {
       color: ${(props) => props.theme.secondary_background_color};
-      font-size: 2rem;
+      font-size: 1.5rem;
     }
   }
 `
@@ -136,7 +138,6 @@ const ListItem: React.FC<Props> = (props) => {
   }
 
   const handleRemove = (e) => {
-    console.log('hi');
     e.stopPropagation();
     dispatch(removeRecipe({ id: id, image: image, name: name, likedTime: likedTime }));
   }

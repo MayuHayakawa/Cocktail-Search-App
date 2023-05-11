@@ -7,7 +7,7 @@ const CardGrid = styled.div`
   margin-top: 2rem;
   display: grid;
   place-content: center;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 300px));
+  grid-template-columns: repeat(auto-fit, minmax(350px, 350px));
   gap: 2rem;
 `
 type Props = {

@@ -23,7 +23,7 @@ const Content = styled.div`
   position: relative;
   width:80%;
   height: 80%;
-  padding: 3rem;
+  padding: 2rem;
   background:#fff;
 `
 
@@ -43,16 +43,15 @@ const CloseButton = styled.button`
 
 const FavoriteButton = styled.div`
   position: absolute;
-  bottom: 0;
-  right: 1rem;
-  top: 1rem;
+  right: 0.5rem;
+  top: -0.5rem;
   font-size: 5rem;
   background-color: transparent;
 `
 
 const ContentTop = styled.div`
   width: 100%;
-  height: 70%;
+  height: 60%;
   display: flex;
   justify-content: space-between;
 `
@@ -73,9 +72,9 @@ const ContentDescription = styled.div`
   width: 55%;
   height: 100%;
   h2{
-    font-size: 3rem;
+    font-size: 2.5rem;
     text-align: center;
-    margin: 2rem 0;
+    margin: 1rem 0;
   }
   div{
     overflow: scroll;
@@ -87,7 +86,7 @@ const ContentDescription = styled.div`
 
 const NomalLine = styled.div`
   width: 100%;
-  margin: 1rem 0;
+  margin: 0.5rem 0;
   height: 2px;
   background-color: ${(props) => props.theme.third_background_color};
 `
@@ -95,12 +94,13 @@ const NomalLine = styled.div`
 const ContentBottom = styled.div`
   display: flex;
   width: 100%;
+  gap: 1rem;
   flex-direction: column;
   justify-content: center;
   h2 {
     width: 100%;
     text-align: center;
-    font-size: 2.5rem;
+    font-size: 2rem;
   }
 `
 

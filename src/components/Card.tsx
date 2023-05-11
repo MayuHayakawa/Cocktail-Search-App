@@ -11,9 +11,9 @@ const CardDiv = styled.div`
 
 const FavoriteButton = styled.div`
   position: absolute;
-  bottom: 0;
-  right: 1rem;
-  font-size: 3rem;
+  bottom: -0.5rem;
+  right: 0.5rem;
+  font-size: 2rem;
   background-color: transparent;
   z-index: 1;
 `
@@ -35,8 +35,8 @@ const CardImage = styled.div`
     bottom: 0;
     p {
       height: 100%;
-      line-height: 5rem;
-      padding-left: 2rem;
+      /* line-height: 2rem; */
+      padding: 0.5rem 0 0 1rem;
       text-align: left;
       font-size: 1.5rem;
       color: white;
