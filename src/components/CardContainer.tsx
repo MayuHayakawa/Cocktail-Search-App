@@ -19,7 +19,6 @@ type Props = {
 const CardContainer: React.FC<Props> = (props) => {
   const { category, dataList, keyword } = props;
   const [ recipesByIngredient, SetRecipesByIngredient ] = useState([]);
-  console.log(category + '/' + keyword);
 
   useEffect(() => {
     if(category === 'ingredient') {

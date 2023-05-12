@@ -130,6 +130,7 @@ const SearchBar: React.FC<Props> = (props) => {
       //   const reg = new RegExp(`^${wordEntered}`, 'gi'); //create RegExp object
       //   return reg.test(value.strIngredient1.toLowerCase()); //test() returns true or false
       // })
+
       if(wordEntered === "") {
         setFilteredData([]);
       } else {
@@ -150,15 +151,15 @@ const SearchBar: React.FC<Props> = (props) => {
     //   }
     // }
     if(category === 'ingredient') {
-      if(dataList.filter(item => item.strIngredient1.indexOf(wordEntered) !== -1)) {
-      // if(dataList.some(item => item.strIngredient1.includes(wordEntered))) {
+      if(dataList.filter(item => item.strIngredient1.toString().indexOf(wordEntered) !== -1)) {
+        // if(dataList.some(item => item.strIngredient1.includes(wordEntered))) {
         setKeyword(wordEntered);
+        // setIsFocus(false);
       } else {
         alert('there are not recipe');
-        console.log("nothing");
       }
     }
-    setIsFocus(false);
+    // setIsFocus(false);
   }
   
   const clearInput = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -236,7 +237,7 @@ const SearchBar: React.FC<Props> = (props) => {
           </AutocompleteContainer>
         )}
       </SearchBarContainer>
-      { category === 'ingredient' && keyword && keyword.length != 0 && <CardContainer category={'ingredient'} dataList={[]} keyword={keyword} />}
+      { category === 'ingredient' && keyword && keyword.length != 0 && isFocus === false && <CardContainer category={'ingredient'} dataList={[]} keyword={keyword} />}
     </ThemeProvider>
   )
 }
