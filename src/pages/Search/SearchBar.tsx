@@ -120,7 +120,7 @@ const SearchBar: React.FC<Props> = (props) => {
       const newFilter = dataList.filter((value) => {
         const reg = new RegExp(`^${wordEntered}`, 'i');
         return reg.test(value.strIngredient1);
-      });
+      })
 
       // const newFilter = dataList.filter(value =>
       //   value.strIngredient1.toLowerCase().startsWith(wordEntered.toLowerCase())
@@ -134,9 +134,10 @@ const SearchBar: React.FC<Props> = (props) => {
       if(wordEntered === "") {
         setFilteredData([]);
       } else {
-        setFilteredData(newFilter);
-        console.log('wordEnderd: ' + wordEntered);
         console.log('newFilter: ' + newFilter);
+        setFilteredData(newFilter);
+        console.log('wordEnderd: ' + wordEntered); //works
+        console.log('newFilter: ' + newFilter); //doesn't work
       }
     }
   }, [category, dataList, wordEntered]);
