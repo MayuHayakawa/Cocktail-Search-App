@@ -11,7 +11,7 @@ export type FavoriteRecipeData = {
 }
 
 type FavoriteRecipeList = {
-    list: [FavoriteRecipeData]
+    list: FavoriteRecipeData[]
 }
 
 //bring initial data from local strage
