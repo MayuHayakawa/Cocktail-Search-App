@@ -20,7 +20,7 @@ const SearchByIngredient: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <div>
-        { ingredients.status === 'succeeded' && <SearchBar category={'ingredient'} dataList={ingredients.data} placeholder={'search recipes by indredient'} /> }
+        { ingredients.status === 'succeeded' && <SearchBar category={'ingredient'} dataList={ingredients.data} placeholder={'search recipes by ingredient'} /> }
         { ingredients.status === 'pending' && <div>Loading...</div> }
         { ingredients.status === 'rejected' && <div>{ingredients.error}</div> }
       </div>

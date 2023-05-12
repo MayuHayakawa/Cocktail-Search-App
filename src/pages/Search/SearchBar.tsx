@@ -140,27 +140,28 @@ const SearchBar: React.FC<Props> = (props) => {
     }
   }, [category, dataList, wordEntered]);
 
-  const checkInput = (e: React.FormEvent<HTMLInputElement> | React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    e.preventDefault();
-    // if(category === 'name') {
-    //   if(dataList.some(item => item.strDrink.includes(wordEntered))) {
-    //     setKeyword(wordEntered);
-    //   } else {
-    //     alert('there are not recipe');
-    //     console.log("nothing");
-    //   }
-    // }
-    if(category === 'ingredient') {
-      if(dataList.filter(item => item.strIngredient1.toString().indexOf(wordEntered) !== -1)) {
-        // if(dataList.some(item => item.strIngredient1.includes(wordEntered))) {
-        setKeyword(wordEntered);
-        // setIsFocus(false);
-      } else {
-        alert('there are not recipe');
-      }
-    }
-    // setIsFocus(false);
-  }
+  // const checkInput = (e: React.FormEvent<HTMLInputElement> | React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  //   e.preventDefault();
+  //   // if(category === 'name') {
+  //   //   if(dataList.some(item => item.strDrink.includes(wordEntered))) {
+  //   //     setKeyword(wordEntered);
+  //   //   } else {
+  //   //     alert('there are not recipe');
+  //   //     console.log("nothing");
+  //   //   }
+  //   // }
+  //   if(category === 'ingredient') {
+  //     if(dataList.filter(item => item.strIngredient1.toString().indexOf(wordEntered) !== -1)) {
+  //       // if(dataList.some(item => item.strIngredient1.includes(wordEntered))) {
+  //       setKeyword(wordEntered);
+  //       // setIsFocus(false);
+  //     } else {
+  //       console.log('error');
+  //       alert('there are not recipe');
+  //     }
+  //   }
+  //   // setIsFocus(false);
+  // }
   
   const clearInput = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
@@ -179,10 +180,11 @@ const SearchBar: React.FC<Props> = (props) => {
             placeholder={placeholder}
             value={wordEntered}
             onChange={(e) => setWordEntered(e.target.value)}
-            onSubmit={(e) => checkInput(e)}
+            // onSubmit={(e) => checkInput(e)}
           />
           {wordEntered.length === 0 ? (
-            <SearchButton onClick={(e) => checkInput(e)}>
+            <SearchButton>
+            {/* <SearchButton onClick={(e) => checkInput(e)}> */}
               <TbSearch  />
             </SearchButton>
           ) : (
@@ -190,7 +192,8 @@ const SearchBar: React.FC<Props> = (props) => {
               <CloseButton onClick={(e) => clearInput(e)} >
                 <CgClose />
               </CloseButton>
-              <SearchButton onClick={(e) => checkInput(e)}>
+              <SearchButton>
+              {/* <SearchButton onClick={(e) => checkInput(e)}> */}
                 <TbSearch  />
               </SearchButton>
             </>
