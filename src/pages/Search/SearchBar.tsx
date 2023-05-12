@@ -135,8 +135,8 @@ const SearchBar: React.FC<Props> = (props) => {
         setFilteredData([]);
       } else {
         setFilteredData(newFilter);
-        console.log('wordEnderd' + wordEntered);
-        console.log('newFilter' + newFilter);
+        console.log('wordEnderd: ' + wordEntered);
+        console.log('newFilter: ' + newFilter);
       }
     }
   }, [category, dataList, wordEntered]);
@@ -163,6 +163,10 @@ const SearchBar: React.FC<Props> = (props) => {
   //   }
   //   // setIsFocus(false);
   // }
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setWordEntered(e.target.value);
+  }
   
   const clearInput = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
@@ -180,7 +184,7 @@ const SearchBar: React.FC<Props> = (props) => {
             type='text'
             placeholder={placeholder}
             value={wordEntered}
-            onChange={(e) => setWordEntered(e.target.value)}
+            onChange={(e) => handleChange(e)}
             // onSubmit={(e) => checkInput(e)}
           />
           {wordEntered.length === 0 ? (
