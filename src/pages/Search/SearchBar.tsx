@@ -121,7 +121,7 @@ const SearchBar: React.FC<Props> = (props) => {
         const reg = new RegExp(`^${wordEntered}`, 'i');
         return reg.test(value.strIngredient1);
       });
-      
+
       // const newFilter = dataList.filter(value =>
       //   value.strIngredient1.toLowerCase().startsWith(wordEntered.toLowerCase())
       // );
@@ -150,7 +150,8 @@ const SearchBar: React.FC<Props> = (props) => {
     //   }
     // }
     if(category === 'ingredient') {
-      if(dataList.some(item => item.strIngredient1.includes(wordEntered))) {
+      if(dataList.filter(item => item.strIngredient1.indexOf(wordEntered) !== -1)) {
+      // if(dataList.some(item => item.strIngredient1.includes(wordEntered))) {
         setKeyword(wordEntered);
       } else {
         alert('there are not recipe');
