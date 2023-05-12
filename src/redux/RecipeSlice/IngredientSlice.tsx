@@ -41,9 +41,11 @@ export const IngredientSlice = createSlice({
     extraReducers: (builder) => {
         builder
         .addCase(fetchAllIngredient.pending, (state) => {
+            console.log('prnding')
             state.status = 'pending';
         })
         .addCase(fetchAllIngredient.fulfilled, (state, action) => {
+            console.log('succeeded')
             state.status = 'succeeded';
             state.data = action.payload.map((ingredient: string) => ({
                 strDrink: 'initial data',
@@ -51,6 +53,7 @@ export const IngredientSlice = createSlice({
             }));
         })
         .addCase(fetchAllIngredient.rejected, (state, action) => {
+            console.log('rejected')
             state.status = 'rejected';
             state.error = action.error.message;
         })

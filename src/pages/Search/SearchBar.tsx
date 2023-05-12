@@ -84,36 +84,38 @@ type Props = {
   category: string
   dataList: IngredientData[]
   placeholder: string
-  firstLetter: string
+  // firstLetter: string
 }
 
 const SearchBar: React.FC<Props> = (props) => {
-  const { category, dataList, placeholder, firstLetter } = props;
+  // const { category, dataList, placeholder, firstLetter } = props;
+  const { category, dataList, placeholder } = props;
   const theme = useSelector((state: RootState) => state.theme);
 
-  const [ wordEntered, setWordEntered ] = useState(firstLetter);
+  // const [ wordEntered, setWordEntered ] = useState(firstLetter);
+  const [ wordEntered, setWordEntered ] = useState('');
   const [ filteredData, setFilteredData ] = useState<{strDrink: string, strIngredient1: string}[]>([]);
   const [ keyword, setKeyword ] = useState("");
   const [ isFocus, setIsFocus ] = useState(false);
 
-  useEffect(() => {
-    if(category === 'name') {
-      setWordEntered(firstLetter);
-    }
-  }, [category, firstLetter]);
+  // useEffect(() => {
+  //   if(category === 'name') {
+  //     setWordEntered(firstLetter);
+  //   }
+  // }, [category, firstLetter]);
 
   useEffect(() => {
-    if(category == 'name') {
-      const newFilter = dataList.filter((value) => {
-        const reg = new RegExp(`^${wordEntered}`, 'gi'); //create RegExp object
-        return reg.test(value.strDrink.toLowerCase()); //test() returns true or false
-      })
-      if(wordEntered === "") {
-        setFilteredData([]);
-      } else {
-        setFilteredData(newFilter);
-      }
-    }
+    // if(category == 'name') {
+    //   const newFilter = dataList.filter((value) => {
+    //     const reg = new RegExp(`^${wordEntered}`, 'gi'); //create RegExp object
+    //     return reg.test(value.strDrink.toLowerCase()); //test() returns true or false
+    //   })
+    //   if(wordEntered === "") {
+    //     setFilteredData([]);
+    //   } else {
+    //     setFilteredData(newFilter);
+    //   }
+    // }
     if(category == 'ingredient') {
       const newFilter = dataList.filter((value) => {
         const reg = new RegExp(`^${wordEntered}`, 'gi'); //create RegExp object
@@ -130,14 +132,14 @@ const SearchBar: React.FC<Props> = (props) => {
 
   const checkInput = (e: React.FormEvent<HTMLInputElement> | React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
-    if(category === 'name') {
-      if(dataList.some(item => item.strDrink.includes(wordEntered))) {
-        setKeyword(wordEntered);
-      } else {
-        alert('there are not recipe');
-        console.log("nothing");
-      }
-    }
+    // if(category === 'name') {
+    //   if(dataList.some(item => item.strDrink.includes(wordEntered))) {
+    //     setKeyword(wordEntered);
+    //   } else {
+    //     alert('there are not recipe');
+    //     console.log("nothing");
+    //   }
+    // }
     if(category === 'ingredient') {
       if(dataList.some(item => item.strIngredient1.includes(wordEntered))) {
         setKeyword(wordEntered);
@@ -183,7 +185,7 @@ const SearchBar: React.FC<Props> = (props) => {
             </>
           )}
         </Form>
-        { category === 'name' && filteredData && filteredData.length != 0 && isFocus === true && (
+        {/* { category === 'name' && filteredData && filteredData.length != 0 && isFocus === true && (
           <AutocompleteContainer>
             <ul>
               {filteredData.map((value, i) => {
@@ -202,7 +204,7 @@ const SearchBar: React.FC<Props> = (props) => {
               })}
             </ul>
           </AutocompleteContainer>
-        )}
+        )} */}
         { category === 'ingredient' && filteredData && filteredData.length != 0 && isFocus === true && (
           <AutocompleteContainer>
             <ul>
