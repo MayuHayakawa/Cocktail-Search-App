@@ -135,7 +135,8 @@ const SearchBar: React.FC<Props> = (props) => {
         setFilteredData([]);
       } else {
         setFilteredData(newFilter);
-        console.log(newFilter);
+        console.log('wordEnderd' + wordEntered);
+        console.log('newFilter' + newFilter);
       }
     }
   }, [category, dataList, wordEntered]);
