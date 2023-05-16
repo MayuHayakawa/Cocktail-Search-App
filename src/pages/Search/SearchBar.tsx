@@ -231,6 +231,7 @@ const SearchBar: React.FC<Props> = (props) => {
           <AutocompleteContainer>
             <ul>
               {filteredData.map((value, i) => {
+
                 return(
                   <li 
                     key={i}
