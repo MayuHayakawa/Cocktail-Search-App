@@ -94,7 +94,7 @@ const SearchBar: React.FC<Props> = (props) => {
 
   // const [ wordEntered, setWordEntered ] = useState(firstLetter);
   const [ wordEntered, setWordEntered ] = useState('');
-  const [ filteredData, setFilteredData ] = useState<{strDrink: string, strIngredient1: string}[]>([]);
+  const [ filteredData, setFilteredData ] = useState<IngredientData[]>([]);
   const [ keyword, setKeyword ] = useState("");
   const [ isFocus, setIsFocus ] = useState(false);
 
@@ -117,10 +117,13 @@ const SearchBar: React.FC<Props> = (props) => {
     //   }
     // }
     if(category == 'ingredient') {
+      console.log('dataList: ' + dataList);
+      // doesn't work
       const newFilter = dataList.filter((value) => {
         const reg = new RegExp(`^${wordEntered}`, 'i');
         return reg.test(value.strIngredient1);
       })
+      console.log('newFilter: ' + newFilter);
 
       // const newFilter = dataList.filter(value =>
       //   value.strIngredient1.toLowerCase().startsWith(wordEntered.toLowerCase())
@@ -134,10 +137,8 @@ const SearchBar: React.FC<Props> = (props) => {
       if(wordEntered === "") {
         setFilteredData([]);
       } else {
-        console.log('newFilter: ' + newFilter);
         setFilteredData(newFilter);
         console.log('wordEnderd: ' + wordEntered); //works
-        console.log('newFilter: ' + newFilter); //doesn't work
       }
     }
   }, [category, dataList, wordEntered]);
