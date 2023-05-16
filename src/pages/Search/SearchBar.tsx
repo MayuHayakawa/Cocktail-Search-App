@@ -117,22 +117,22 @@ const SearchBar: React.FC<Props> = (props) => {
     //   }
     // }
     if(category == 'ingredient') {
-      console.log('dataList: ' + dataList);
+      
       // doesn't work
-      const newFilter = dataList.filter((value) => {
-        const reg = new RegExp(`^${wordEntered}`, 'i');
-        return reg.test(value.strIngredient1);
-      })
-      console.log('newFilter: ' + newFilter);
-
+      // const newFilter = dataList.filter((value) => {
+      //   const reg = new RegExp(`^${wordEntered}`, 'i');
+      //   return reg.test(value.strIngredient1);
+      // })
+      
       // const newFilter = dataList.filter(value =>
       //   value.strIngredient1.toLowerCase().startsWith(wordEntered.toLowerCase())
       // );
-
-      // const newFilter = dataList.filter((value) => {
-      //   const reg = new RegExp(`^${wordEntered}`, 'gi'); //create RegExp object
-      //   return reg.test(value.strIngredient1.toLowerCase()); //test() returns true or false
-      // })
+      
+      const newFilter = dataList.filter((value) => {
+        const reg = new RegExp(`^${wordEntered}`, 'gi'); //create RegExp object
+        return reg.test(value.strIngredient1.toLowerCase()); //test() returns true or false
+      })
+      console.log('newFilter: ' + newFilter);
 
       if(wordEntered === "") {
         setFilteredData([]);
