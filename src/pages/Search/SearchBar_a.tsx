@@ -1,6 +1,6 @@
-import React, { ReactEventHandler, useState } from 'react';
+import React, { useState } from 'react';
 import { IngredientData } from '../../redux/RecipeSlice/IngredientSlice';
-import styled, { ThemeProvider } from 'styled-components';
+import { ThemeProvider } from 'styled-components';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { Text, Input } from '@chakra-ui/react';
