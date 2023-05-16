@@ -17,6 +17,7 @@ const SearchContainer = styled.div`
     padding: 1rem;
   }
   h1 {
+    font-size: 2.5rem;
     color: ${(props) => props.theme.secondary_background_color};
     @media screen and (max-width: 1024px){
       padding: 1rem 5rem;

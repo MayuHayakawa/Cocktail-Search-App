@@ -11,7 +11,7 @@ const CardDiv = styled.div`
 
 const FavoriteButton = styled.div`
   position: absolute;
-  bottom: -0.5rem;
+  bottom: 0.5rem;
   right: 0.5rem;
   font-size: 2rem;
   background-color: transparent;

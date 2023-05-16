@@ -40,7 +40,7 @@ const SearchInput = styled.input`
 
 const SearchButton = styled.button`
   position: absolute;
-  left: 0;
+  left: 0.5rem;
   width: 3rem;
   height: 3rem;
   font-size: 2rem;
@@ -231,7 +231,6 @@ const SearchBar: React.FC<Props> = (props) => {
           <AutocompleteContainer>
             <ul>
               {filteredData.map((value, i) => {
-                console.log('hello');
                 return(
                   <li 
                     key={i}
