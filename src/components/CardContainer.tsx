@@ -21,20 +21,20 @@ const CardContainer: React.FC<Props> = (props) => {
   const [ recipesByIngredient, SetRecipesByIngredient ] = useState([]);
 
   useEffect(() => {
+    async function fetchIngredient() {
+      try {
+        const res = await axios.get(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${keyword}`);
+        SetRecipesByIngredient(res.data.drinks);
+      }
+      catch(error) {
+        console.log(`Error while fetching api: ${error}`);
+      }
+    }
     if(category === 'ingredient') {
       fetchIngredient();
     }
-  });
+  }, [category, keyword]);
 
-  async function fetchIngredient() {
-    try {
-      const res = await axios.get(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${keyword}`);
-      SetRecipesByIngredient(res.data.drinks);
-    }
-    catch(error) {
-      console.log(`Error while fetching api: ${error}`);
-    }
-  }
 
   return (
     <>
