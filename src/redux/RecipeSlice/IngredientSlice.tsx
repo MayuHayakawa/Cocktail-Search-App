@@ -8,6 +8,7 @@ export const fetchAllIngredient = createAsyncThunk<string[], void, { rejectValue
     async () => {
         try{
             const res = await axios.get('https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list');
+            console.log(res.data.drinks);
             return res.data.drinks;
         } catch(error) {
             throw new Error('Failed to fetch ingredients.');
@@ -17,16 +18,12 @@ export const fetchAllIngredient = createAsyncThunk<string[], void, { rejectValue
 
 //set each data type
 export type IngredientData = {
-    strDrink: string
-    // strIngredient1: string
-    strIngredient1: {
-        strIngredient1: string
-    }
+    strIngredient1: string
 }
 
 //set data list type
 export type IngredientState = {
-    data: IngredientData[]
+    data: IngredientData[];
     status: 'idle' | 'pending' | 'succeeded' | 'rejected';
     error: string | undefined;
 }
@@ -50,15 +47,9 @@ export const IngredientSlice = createSlice({
         .addCase(fetchAllIngredient.fulfilled, (state, action) => {
             console.log('succeeded')
             state.status = 'succeeded';
-            // state.data = action.payload.map((ingredient: string) => ({
-            //     strDrink: 'initial data',
-            //     strIngredient1: ingredient
-            // }));
-            state.data = action.payload.map((ingredient: string) => ({
-                strDrink: 'initial data',
-                strIngredient1: {
-                    strIngredient1: ingredient
-                }
+
+            state.data = action.payload.map((ingredient) => ({
+                strIngredient1: ingredient
             }));
         })
         .addCase(fetchAllIngredient.rejected, (state, action) => {

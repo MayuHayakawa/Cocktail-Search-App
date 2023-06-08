@@ -18,7 +18,7 @@ const Form = styled.form`
   width: 100%;
   height: 3rem;
   margin-top: 1rem;
-  `
+`
 
 const SearchInput = styled.input`
   width: 100%;
@@ -27,15 +27,6 @@ const SearchInput = styled.input`
   font-size: 1.3rem;
   border: 1px solid ${(props) => props.theme.third_background_color};
   border-radius: 10px;
-  @media screen and (max-width: 768px){
-    font-size: 1rem;
-  }
-  &::placeholder {
-    color: ${(props) => props.theme.third_background_color};
-    @media screen and (max-width: 768px){
-      font-size: 1rem;
-    }
-  }
 `
 
 const SearchButton = styled.button`
@@ -48,7 +39,7 @@ const SearchButton = styled.button`
   color: ${(props) => props.theme.third_background_color};
   background-color: transparent;
   border: none;
-  `
+`
 
 const CloseButton = styled.button`
   position: absolute;
@@ -84,84 +75,42 @@ type Props = {
   category: string
   dataList: IngredientData[]
   placeholder: string
-  // firstLetter: string
 }
 
 const SearchBar: React.FC<Props> = (props) => {
-  // const { category, dataList, placeholder, firstLetter } = props;
   const { category, dataList, placeholder } = props;
   const theme = useSelector((state: RootState) => state.theme);
 
-  console.log('dataList: ' + dataList);
+  const [wordEntered, setWordEntered] = useState('');
+  const [filteredData, setFilteredData] = useState<IngredientData[]>([]);
+  const [keyword, setKeyword] = useState("");
+  const [isFocus, setIsFocus] = useState(false);
 
-  // const [ wordEntered, setWordEntered ] = useState(firstLetter);
-  const [ wordEntered, setWordEntered ] = useState('');
-  const [ ingredientNameList, setIngredinetNameList ] = useState<string[]>([]);
-  const [ filteredData, setFilteredData ] = useState<string[]>([]);
-  // const [ filteredData, setFilteredData ] = useState<IngredientData[]>([]);
-  const [ keyword, setKeyword ] = useState("");
-  const [ isFocus, setIsFocus ] = useState(false);
+  console.log(dataList);
 
   useEffect(() => {
-    const toArray: string[] = dataList.map((value) => {
-      return value.strIngredient1.strIngredient1;
-    });
-    setIngredinetNameList(toArray);
-  }, [dataList]);
-
-  useEffect(() => {
-    if(category == 'ingredient') {
-      
-      // doesn't work
-      const newFilter = ingredientNameList.filter((value) => {
-        console.log('filtering value: ' + value);
+    console.log(wordEntered);
+    
+    if (category === 'ingredient') {
+      const newFilter = dataList.filter((value) => {
         const reg = new RegExp(`^${wordEntered}`, 'gi');
-        return reg.test(value);
-      })
-      // const newFilter = dataList.filter((value) => {
-      //   const reg = new RegExp(`^${wordEntered}`, 'gi');
-      //   let ingredient: string;
-      //   // console.log('type of value is ' + typeof(value)); //obj
-      //   // console.log('type of value.ingredient1 is ' + typeof(value.strIngredient1)); //obj
-      //   // console.log('value is ' + value); //[obj obj]
-      //   // console.log('value.strIngredient1 is ' + value.strIngredient1.strIngredient1);
-      //   if(typeof value.strIngredient1 === 'object' && value.strIngredient1 !== null) {
-      //     ingredient = value.strIngredient1.strIngredient1;
-      //     // ingredient = value.strIngredient1.strIngredient1;
-      //   } else {
-      //     ingredient = value.strIngredient1;
-      //   }
-      //   return reg.test(ingredient);
-      // })
-      
-      // const newFilter = dataList.filter(value =>
-      //   value.strIngredient1.toLowerCase().startsWith(wordEntered.toLowerCase())
-      // );
-      
-      // TypeError: b.strIngredient1.toLowerCase is not a function
-      // const newFilter = dataList.filter((value) => {
-      //   const reg = new RegExp(`^${wordEntered}`, 'gi'); //create RegExp object
-      //   return reg.test(value.strIngredient1.toLowerCase()); //test() returns true or false
-      // })
-      console.log('newFilter: ' + newFilter);
-
-      if(wordEntered === "") {
+        return reg.test(value.strIngredient1.strIngredient1);
+      });
+      if (wordEntered === "") {
         setFilteredData([]);
       } else {
         setFilteredData(newFilter);
-        console.log('wordEnderd: ' + wordEntered); //works
       }
+      console.log(newFilter);
     }
-  }, [category, ingredientNameList, wordEntered]);
+  }, [category, dataList, wordEntered]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setWordEntered(e.target.value);
   }
-  
-  const clearInput = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    e.preventDefault();
-    setFilteredData(ingredientNameList);
-    // setFilteredData(dataList);
+
+  const clearInput = () => {
+    setFilteredData(dataList);
     setWordEntered('');
     setIsFocus(false);
   }
@@ -179,42 +128,41 @@ const SearchBar: React.FC<Props> = (props) => {
           />
           {wordEntered.length === 0 ? (
             <SearchButton>
-              <TbSearch  />
+              <TbSearch />
             </SearchButton>
           ) : (
             <>
-              <CloseButton onClick={(e) => clearInput(e)} >
+              <CloseButton onClick={clearInput}>
                 <CgClose />
               </CloseButton>
               <SearchButton>
-                <TbSearch  />
+                <TbSearch />
               </SearchButton>
             </>
           )}
         </Form>
-        { category === 'ingredient' && filteredData && filteredData.length != 0 && isFocus === true && (
+        {category === 'ingredient' && filteredData.length !== 0 && isFocus === true && (
           <AutocompleteContainer>
             <ul>
-              {filteredData.map((value, i) => {
-
-                return(
-                  <li 
-                    key={i}
-                    onClick={async () => {
-                      setWordEntered(value);
-                      setKeyword(value);
-                      setIsFocus(false);
-                    }}
-                  >
-                    &nbsp;&nbsp;&nbsp;{value}
-                  </li>
-                )
-              })}
+              {filteredData.map((value, i) => (
+                <li
+                  key={i}
+                  onClick={() => {
+                    setWordEntered(value.strIngredient1.strIngredient1);
+                    setKeyword(value.strIngredient1.strIngredient1);
+                    setIsFocus(false);
+                  }}
+                >
+                  {value.strIngredient1.strIngredient1}
+                </li>
+              ))}
             </ul>
           </AutocompleteContainer>
         )}
       </SearchBarContainer>
-      { category === 'ingredient' && keyword && keyword.length != 0 && isFocus === false && <CardContainer category={'ingredient'} dataList={[]} keyword={keyword} />}
+      {category === 'ingredient' && keyword.length !== 0 && isFocus === false && (
+        <CardContainer category={'ingredient'} dataList={[]} keyword={keyword} />
+      )}
     </ThemeProvider>
   )
 }
