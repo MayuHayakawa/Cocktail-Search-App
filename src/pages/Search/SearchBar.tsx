@@ -92,7 +92,7 @@ const SearchBar: React.FC<Props> = (props) => {
   const { category, dataList, placeholder } = props;
   const theme = useSelector((state: RootState) => state.theme);
 
-  console.log(dataList);
+  console.log('dataList: ' + dataList);
 
   // const [ wordEntered, setWordEntered ] = useState(firstLetter);
   const [ wordEntered, setWordEntered ] = useState('');
@@ -111,10 +111,10 @@ const SearchBar: React.FC<Props> = (props) => {
 
   useEffect(() => {
     if(category == 'ingredient') {
-      console.log('ingredientNameList: ' + ingredientNameList);
-
+      
       // doesn't work
       const newFilter = ingredientNameList.filter((value) => {
+        console.log('ingredientNameList: ' + ingredientNameList);
         console.log('filtering value: ' + value);
         const reg = new RegExp(`^${wordEntered}`, 'gi');
         return reg.test(value);
