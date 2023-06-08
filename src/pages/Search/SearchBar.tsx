@@ -95,6 +95,7 @@ const SearchBar: React.FC<Props> = (props) => {
       const newFilter = dataList.filter((value) => {
         // console.log(typeof(value)); //object
         console.log(typeof(value.strIngredient1.strIngredient1)); //string
+        console.log(value.strIngredient1.strIngredient1);
 
         const reg = new RegExp(`^${wordEntered}`, 'gi');
         return reg.test(value.strIngredient1.strIngredient1);
