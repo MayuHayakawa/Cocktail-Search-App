@@ -93,7 +93,7 @@ const SearchBar: React.FC<Props> = (props) => {
     
     if (category === 'ingredient') {
       const newFilter = dataList.filter((value) => {
-        console.log(typeof(value)); //object
+        // console.log(typeof(value)); //object
         console.log(typeof(value.strIngredient1.strIngredient1)); //string
 
         const reg = new RegExp(`^${wordEntered}`, 'gi');
