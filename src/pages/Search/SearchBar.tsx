@@ -114,7 +114,6 @@ const SearchBar: React.FC<Props> = (props) => {
       
       // doesn't work
       const newFilter = ingredientNameList.filter((value) => {
-        console.log('ingredientNameList: ' + ingredientNameList);
         console.log('filtering value: ' + value);
         const reg = new RegExp(`^${wordEntered}`, 'gi');
         return reg.test(value);
