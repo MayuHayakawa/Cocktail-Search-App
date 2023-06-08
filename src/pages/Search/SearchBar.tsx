@@ -92,11 +92,22 @@ const SearchBar: React.FC<Props> = (props) => {
   const { category, dataList, placeholder } = props;
   const theme = useSelector((state: RootState) => state.theme);
 
+  console.log(dataList);
+
   // const [ wordEntered, setWordEntered ] = useState(firstLetter);
   const [ wordEntered, setWordEntered ] = useState('');
-  const [ filteredData, setFilteredData ] = useState<IngredientData[]>([]);
+  const [ ingredientNameList, setIngredinetNameList ] = useState<string[]>([]);
+  const [ filteredData, setFilteredData ] = useState<string[]>([]);
+  // const [ filteredData, setFilteredData ] = useState<IngredientData[]>([]);
   const [ keyword, setKeyword ] = useState("");
   const [ isFocus, setIsFocus ] = useState(false);
+
+  useEffect(() => {
+    const toArray: string[] = dataList.map((value) => {
+      return value.strIngredient1.strIngredient1;
+    });
+    setIngredinetNameList(toArray);
+  }, [dataList]);
 
   // useEffect(() => {
   //   if(category === 'name') {
@@ -119,10 +130,25 @@ const SearchBar: React.FC<Props> = (props) => {
     if(category == 'ingredient') {
 
       // doesn't work
-      const newFilter = dataList.filter((value) => {
+      const newFilter = ingredientNameList.filter((value) => {
         const reg = new RegExp(`^${wordEntered}`, 'gi');
-        return reg.test(value.strIngredient1);
+        return reg.test(value);
       })
+      // const newFilter = dataList.filter((value) => {
+      //   const reg = new RegExp(`^${wordEntered}`, 'gi');
+      //   let ingredient: string;
+      //   // console.log('type of value is ' + typeof(value)); //obj
+      //   // console.log('type of value.ingredient1 is ' + typeof(value.strIngredient1)); //obj
+      //   // console.log('value is ' + value); //[obj obj]
+      //   // console.log('value.strIngredient1 is ' + value.strIngredient1.strIngredient1);
+      //   if(typeof value.strIngredient1 === 'object' && value.strIngredient1 !== null) {
+      //     ingredient = value.strIngredient1.strIngredient1;
+      //     // ingredient = value.strIngredient1.strIngredient1;
+      //   } else {
+      //     ingredient = value.strIngredient1;
+      //   }
+      //   return reg.test(ingredient);
+      // })
       
       // const newFilter = dataList.filter(value =>
       //   value.strIngredient1.toLowerCase().startsWith(wordEntered.toLowerCase())
@@ -133,7 +159,7 @@ const SearchBar: React.FC<Props> = (props) => {
       //   const reg = new RegExp(`^${wordEntered}`, 'gi'); //create RegExp object
       //   return reg.test(value.strIngredient1.toLowerCase()); //test() returns true or false
       // })
-      console.log('newFilter: ' + newFilter);
+      console.log(newFilter);
 
       if(wordEntered === "") {
         setFilteredData([]);
@@ -142,7 +168,7 @@ const SearchBar: React.FC<Props> = (props) => {
         console.log('wordEnderd: ' + wordEntered); //works
       }
     }
-  }, [category, dataList, wordEntered]);
+  }, [category, ingredientNameList, wordEntered]);
 
   // const checkInput = (e: React.FormEvent<HTMLInputElement> | React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
   //   e.preventDefault();
@@ -173,7 +199,8 @@ const SearchBar: React.FC<Props> = (props) => {
   
   const clearInput = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
-    setFilteredData(dataList);
+    setFilteredData(ingredientNameList);
+    // setFilteredData(dataList);
     setWordEntered('');
     setIsFocus(false);
   }
@@ -236,13 +263,23 @@ const SearchBar: React.FC<Props> = (props) => {
                   <li 
                     key={i}
                     onClick={async () => {
-                      setWordEntered(value.strIngredient1);
-                      setKeyword(value.strIngredient1);
+                      setWordEntered(value);
+                      setKeyword(value);
                       setIsFocus(false);
                     }}
                   >
-                    &nbsp;&nbsp;&nbsp;{value.strIngredient1}
+                    &nbsp;&nbsp;&nbsp;{value}
                   </li>
+                  // <li 
+                  //   key={i}
+                  //   onClick={async () => {
+                  //     setWordEntered(value.strIngredient1);
+                  //     setKeyword(value.strIngredient1);
+                  //     setIsFocus(false);
+                  //   }}
+                  // >
+                  //   &nbsp;&nbsp;&nbsp;{value.strIngredient1}
+                  // </li>
                 )
               })}
             </ul>
@@ -254,4 +291,4 @@ const SearchBar: React.FC<Props> = (props) => {
   )
 }
 
-export default SearchBar
+export default SearchBar;
