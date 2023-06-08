@@ -83,7 +83,6 @@ const SearchBar: React.FC<Props> = (props) => {
 
   const [wordEntered, setWordEntered] = useState<string>('');
   const [filteredData, setFilteredData] = useState<IngredientData[]>([]);
-  const [ toString, setToString ] = useState<string>('');
   const [keyword, setKeyword] = useState("");
   const [isFocus, setIsFocus] = useState(false);
 
@@ -94,17 +93,19 @@ const SearchBar: React.FC<Props> = (props) => {
     
     if (category === 'ingredient') {
       const newFilter = dataList.filter((value) => {
-        
+
         console.log(typeof(value.strIngredient1.strIngredient1)); // dev:string / product: object
         console.log(value.strIngredient1.strIngredient1); // dev:get data / product: {strIngredient1: "cocktail name"}
 
-        if(typeof(value.strIngredient1.strIngredient1) == 'object' && value.strIngredient1.strIngredient1 !== null) {
-          const reg = new RegExp(`^${wordEntered}`, 'gi');
-          return reg.test(value.strIngredient1.strIngredient1.strIngredient1);
-        } else {
+        // if(typeof(value.strIngredient1.strIngredient1) == 'object' && value.strIngredient1.strIngredient1 !== null) {
+        //   const reg = new RegExp(`^${wordEntered}`, 'gi');
+        //   return reg.test(value.strIngredient1.strIngredient1.strIngredient1);
+        // } else {
+        //   const reg = new RegExp(`^${wordEntered}`, 'gi');
+        //   return reg.test(value.strIngredient1.strIngredient1);
           const reg = new RegExp(`^${wordEntered}`, 'gi');
           return reg.test(value.strIngredient1.strIngredient1);
-        }
+        // }
       });
       console.log(newFilter);
 
