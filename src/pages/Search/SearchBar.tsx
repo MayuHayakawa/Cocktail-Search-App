@@ -81,7 +81,7 @@ const SearchBar: React.FC<Props> = (props) => {
   const { category, dataList, placeholder } = props;
   const theme = useSelector((state: RootState) => state.theme);
 
-  const [wordEntered, setWordEntered] = useState('');
+  const [wordEntered, setWordEntered] = useState<string>('');
   const [filteredData, setFilteredData] = useState<IngredientData[]>([]);
   const [keyword, setKeyword] = useState("");
   const [isFocus, setIsFocus] = useState(false);
@@ -93,15 +93,20 @@ const SearchBar: React.FC<Props> = (props) => {
     
     if (category === 'ingredient') {
       const newFilter = dataList.filter((value) => {
+        console.log(typeof(value)); //object
+        console.log(typeof(value.strIngredient1.strIngredient1)); //string
+
         const reg = new RegExp(`^${wordEntered}`, 'gi');
         return reg.test(value.strIngredient1.strIngredient1);
+
       });
+      console.log(newFilter);
+
       if (wordEntered === "") {
         setFilteredData([]);
       } else {
         setFilteredData(newFilter);
       }
-      console.log(newFilter);
     }
   }, [category, dataList, wordEntered]);
 
