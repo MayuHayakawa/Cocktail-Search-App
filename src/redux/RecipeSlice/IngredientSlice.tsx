@@ -18,7 +18,10 @@ export const fetchAllIngredient = createAsyncThunk<string[], void, { rejectValue
 
 //set each data type
 export type IngredientData = {
-    strIngredient1: string
+    // strIngredient1: string
+    strIngredient1: {
+        strIngredient1: string
+    }
 }
 
 //set data list type
@@ -49,7 +52,9 @@ export const IngredientSlice = createSlice({
             state.status = 'succeeded';
 
             state.data = action.payload.map((ingredient) => ({
-                strIngredient1: ingredient
+                strIngredient1: {
+                    strIngredient1: ingredient
+                }
             }));
         })
         .addCase(fetchAllIngredient.rejected, (state, action) => {
