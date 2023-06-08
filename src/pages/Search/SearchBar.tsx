@@ -131,6 +131,7 @@ const SearchBar: React.FC<Props> = (props) => {
 
       // doesn't work
       const newFilter = ingredientNameList.filter((value) => {
+        console.log('filtering value: ' + value);
         const reg = new RegExp(`^${wordEntered}`, 'gi');
         return reg.test(value);
       })
@@ -159,7 +160,7 @@ const SearchBar: React.FC<Props> = (props) => {
       //   const reg = new RegExp(`^${wordEntered}`, 'gi'); //create RegExp object
       //   return reg.test(value.strIngredient1.toLowerCase()); //test() returns true or false
       // })
-      console.log(newFilter);
+      console.log('newFilter: ' + newFilter);
 
       if(wordEntered === "") {
         setFilteredData([]);
