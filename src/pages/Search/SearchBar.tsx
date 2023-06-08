@@ -109,25 +109,9 @@ const SearchBar: React.FC<Props> = (props) => {
     setIngredinetNameList(toArray);
   }, [dataList]);
 
-  // useEffect(() => {
-  //   if(category === 'name') {
-  //     setWordEntered(firstLetter);
-  //   }
-  // }, [category, firstLetter]);
-
   useEffect(() => {
-    // if(category == 'name') {
-    //   const newFilter = dataList.filter((value) => {
-    //     const reg = new RegExp(`^${wordEntered}`, 'gi'); //create RegExp object
-    //     return reg.test(value.strDrink.toLowerCase()); //test() returns true or false
-    //   })
-    //   if(wordEntered === "") {
-    //     setFilteredData([]);
-    //   } else {
-    //     setFilteredData(newFilter);
-    //   }
-    // }
     if(category == 'ingredient') {
+      console.log('ingredientNameList: ' + ingredientNameList);
 
       // doesn't work
       const newFilter = ingredientNameList.filter((value) => {
@@ -171,29 +155,6 @@ const SearchBar: React.FC<Props> = (props) => {
     }
   }, [category, ingredientNameList, wordEntered]);
 
-  // const checkInput = (e: React.FormEvent<HTMLInputElement> | React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-  //   e.preventDefault();
-  //   // if(category === 'name') {
-  //   //   if(dataList.some(item => item.strDrink.includes(wordEntered))) {
-  //   //     setKeyword(wordEntered);
-  //   //   } else {
-  //   //     alert('there are not recipe');
-  //   //     console.log("nothing");
-  //   //   }
-  //   // }
-  //   if(category === 'ingredient') {
-  //     if(dataList.filter(item => item.strIngredient1.toString().indexOf(wordEntered) !== -1)) {
-  //       // if(dataList.some(item => item.strIngredient1.includes(wordEntered))) {
-  //       setKeyword(wordEntered);
-  //       // setIsFocus(false);
-  //     } else {
-  //       console.log('error');
-  //       alert('there are not recipe');
-  //     }
-  //   }
-  //   // setIsFocus(false);
-  // }
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setWordEntered(e.target.value);
   }
@@ -216,11 +177,9 @@ const SearchBar: React.FC<Props> = (props) => {
             placeholder={placeholder}
             value={wordEntered}
             onChange={(e) => handleChange(e)}
-            // onSubmit={(e) => checkInput(e)}
           />
           {wordEntered.length === 0 ? (
             <SearchButton>
-            {/* <SearchButton onClick={(e) => checkInput(e)}> */}
               <TbSearch  />
             </SearchButton>
           ) : (
@@ -229,32 +188,11 @@ const SearchBar: React.FC<Props> = (props) => {
                 <CgClose />
               </CloseButton>
               <SearchButton>
-              {/* <SearchButton onClick={(e) => checkInput(e)}> */}
                 <TbSearch  />
               </SearchButton>
             </>
           )}
         </Form>
-        {/* { category === 'name' && filteredData && filteredData.length != 0 && isFocus === true && (
-          <AutocompleteContainer>
-            <ul>
-              {filteredData.map((value, i) => {
-                return(
-                  <li 
-                    key={i}
-                    onClick={async () => {
-                      setWordEntered(value.strDrink);
-                      setKeyword(value.strDrink);
-                      setIsFocus(false);
-                    }}
-                  >
-                    &nbsp;&nbsp;&nbsp;{value.strDrink}  
-                  </li>
-                )
-              })}
-            </ul>
-          </AutocompleteContainer>
-        )} */}
         { category === 'ingredient' && filteredData && filteredData.length != 0 && isFocus === true && (
           <AutocompleteContainer>
             <ul>
@@ -271,16 +209,6 @@ const SearchBar: React.FC<Props> = (props) => {
                   >
                     &nbsp;&nbsp;&nbsp;{value}
                   </li>
-                  // <li 
-                  //   key={i}
-                  //   onClick={async () => {
-                  //     setWordEntered(value.strIngredient1);
-                  //     setKeyword(value.strIngredient1);
-                  //     setIsFocus(false);
-                  //   }}
-                  // >
-                  //   &nbsp;&nbsp;&nbsp;{value.strIngredient1}
-                  // </li>
                 )
               })}
             </ul>
