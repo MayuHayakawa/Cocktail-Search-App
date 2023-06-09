@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react'
 import styled, { ThemeProvider } from 'styled-components';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
-import { IngredientData } from '../../redux/RecipeSlice/IngredientSlice';
+
 import { TbSearch } from "react-icons/tb";
 import { CgClose } from "react-icons/cg";
 import CardContainer from '../../components/CardContainer';
+import { IngredientData } from '../../redux/RecipeSlice/IngredientSlice';
 
 const SearchBarContainer = styled.div`
   position: relative;
@@ -80,7 +81,6 @@ type Props = {
 const SearchBar: React.FC<Props> = (props) => {
   const { category, dataList, placeholder } = props;
   const theme = useSelector((state: RootState) => state.theme);
-
   const [wordEntered, setWordEntered] = useState<string>('');
   const [filteredData, setFilteredData] = useState<IngredientData[]>([]);
   const [keyword, setKeyword] = useState("");
@@ -93,19 +93,10 @@ const SearchBar: React.FC<Props> = (props) => {
     
     if (category === 'ingredient') {
       const newFilter = dataList.filter((value) => {
-
-        console.log(typeof(value.strIngredient1.strIngredient1)); // dev:string / product: object
-        console.log(value.strIngredient1.strIngredient1); // dev:get data / product: {strIngredient1: "cocktail name"}
-
-        // if(typeof(value.strIngredient1.strIngredient1) == 'object' && value.strIngredient1.strIngredient1 !== null) {
-        //   const reg = new RegExp(`^${wordEntered}`, 'gi');
-        //   return reg.test(value.strIngredient1.strIngredient1.strIngredient1);
-        // } else {
-        //   const reg = new RegExp(`^${wordEntered}`, 'gi');
-        //   return reg.test(value.strIngredient1.strIngredient1);
-          const reg = new RegExp(`^${wordEntered}`, 'gi');
-          return reg.test(value.strIngredient1.strIngredient1);
-        // }
+        console.log(typeof(value.strIngredient1));
+        console.log(value.strIngredient1);
+        const reg = new RegExp(`^${wordEntered}`, 'gi');
+        return reg.test(value.strIngredient1);
       });
       console.log(newFilter);
 
@@ -160,12 +151,12 @@ const SearchBar: React.FC<Props> = (props) => {
                 <li
                   key={i}
                   onClick={() => {
-                    setWordEntered(value.strIngredient1.strIngredient1);
-                    setKeyword(value.strIngredient1.strIngredient1);
+                    setWordEntered(value.strIngredient1);
+                    setKeyword(value.strIngredient1);
                     setIsFocus(false);
                   }}
                 >
-                  {value.strIngredient1.strIngredient1}
+                  {value.strIngredient1}
                 </li>
               ))}
             </ul>

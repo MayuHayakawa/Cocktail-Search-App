@@ -4,7 +4,7 @@ import { RootState } from "../store";
 
 //fetch data
 //createAsyncThunk(action type/name, acync function)
-export const fetchAllIngredient = createAsyncThunk<string[], void, { rejectValue: string }>("ingredients/fetchIngredient",
+export const fetchAllIngredient = createAsyncThunk<IngredientData[], void, { rejectValue: string }>("ingredients/fetchIngredient",
     async () => {
         try{
             const res = await axios.get('https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list');
@@ -18,15 +18,13 @@ export const fetchAllIngredient = createAsyncThunk<string[], void, { rejectValue
 
 //set each data type
 export type IngredientData = {
-    // strIngredient1: string
-    strIngredient1: {
-        strIngredient1: string
-    }
+    strIngredient1: string
 }
 
 //set data list type
 export type IngredientState = {
     data: IngredientData[];
+    // data: string[];
     status: 'idle' | 'pending' | 'succeeded' | 'rejected';
     error: string | undefined;
 }
@@ -50,12 +48,7 @@ export const IngredientSlice = createSlice({
         .addCase(fetchAllIngredient.fulfilled, (state, action) => {
             console.log('succeeded')
             state.status = 'succeeded';
-
-            state.data = action.payload.map((ingredient) => ({
-                strIngredient1: {
-                    strIngredient1: ingredient
-                }
-            }));
+            state.data = action.payload
         })
         .addCase(fetchAllIngredient.rejected, (state, action) => {
             console.log('rejected')
